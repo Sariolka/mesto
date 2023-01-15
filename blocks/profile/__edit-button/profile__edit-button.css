@@ -10,3 +10,11 @@
     background-color: transparent;
     align-self: center;
 }
+
+@media (max-width: 425px) {
+    .profile__edit-button {
+        width: 18px;
+        height: 18px;
+    }
+    
+}
