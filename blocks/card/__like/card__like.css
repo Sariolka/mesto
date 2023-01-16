@@ -7,9 +7,9 @@
     height: 19px;
     background-color: #fff;
     border: none;
-    transition: opacity 0.5 ease-in;
+    transition: opacity .5 ease-in;
 }
 
 .card__like:hover {
-    opacity: 0.5;
+    opacity: .5;
 }

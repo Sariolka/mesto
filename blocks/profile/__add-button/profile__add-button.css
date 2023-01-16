@@ -9,8 +9,12 @@
     align-self: center;
     border: 2px solid #fff;
     border-radius: 2px;
+    transition: opacity .5 ease;
 }
 
+.profile__add-button:hover {
+    opacity: .6;
+}
 @media (max-width: 680px) {
     .profile__add-button {
         background-image: url(../../../images/Add-Button2.svg);
