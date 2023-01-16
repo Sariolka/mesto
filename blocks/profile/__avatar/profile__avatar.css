@@ -5,3 +5,10 @@
     object-fit: cover;
     margin-right: 30px;
 }
+
+@media (max-width: 680px) {
+    .profile__avatar {
+        margin-right: 0;
+        margin-bottom: 22.25px;
+    }
+}

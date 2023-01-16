@@ -1,6 +1,4 @@
 .profile__container {
-    width: 336px;
-    height: 73px;
     align-self: center;
     display: grid;
     grid-template-columns: max-content min-content;
@@ -10,6 +8,9 @@
 @media (max-width: 680px) {
     .profile__container {
         justify-content: center;
+        gap: 14px 10px;
+        margin-left: 30px;
+        margin-bottom: 36px;
     }
     
 }
