@@ -7,6 +7,8 @@
     color: #fff;
     border: none;
     margin-bottom: 37px;
+    padding: 14px 0 18px;
+    margin-top: 48px;
 }
 
 .popup__button-submit:hover {

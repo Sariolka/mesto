@@ -1,4 +1,5 @@
 .popup__fieldset {
     border: none;
     text-align: center;
+    padding: 0;
 }
