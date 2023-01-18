@@ -1,0 +1,15 @@
+.popup__button-reset {
+    background-image: url(../../../images/Close-Icon.svg);
+    transition: opacity .5s ease;
+    width: 32px;
+    height: 32px;
+    border: none;
+    position: absolute;
+    top: -35px;
+    right: -35px;
+    background-color: transparent;
+}
+
+.popup__button-reset:hover {
+    opacity: .6;
+}
