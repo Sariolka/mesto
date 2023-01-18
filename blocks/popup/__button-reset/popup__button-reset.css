@@ -8,8 +8,18 @@
     top: -35px;
     right: -35px;
     background-color: transparent;
+    background-size: cover;
 }
 
 .popup__button-reset:hover {
     opacity: .6;
+}
+
+@media (max-width: 520px) {
+    .popup__button-reset {
+        top: -36px;
+        right: 0;
+        width: 20px;
+        height: 20px;
+    }
 }
