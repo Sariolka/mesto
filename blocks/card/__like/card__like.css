@@ -8,6 +8,8 @@
     background-color: #fff;
     border: none;
     transition: opacity .5s ease;
+    margin-top: 4px;
+    margin-right: 4px;
 }
 
 .card__like:hover {

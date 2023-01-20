@@ -8,7 +8,7 @@
 @media (max-width: 680px) {
     .profile__container {
         justify-content: center;
-        gap: 14px 10px;
+        gap: 7px 10px;
         margin-left: 33px;
         margin-bottom: 36px;
     }
