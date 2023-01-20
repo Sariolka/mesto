@@ -10,6 +10,10 @@ let jobInput = document.querySelector('.popup__description');
 
 buttonEdit.addEventListener('click', function () {
     popup.classList.add('popup_opened');
+    let name = document.querySelector('.profile__name');
+    let job = document.querySelector('.profile__description');
+    nameInput.value = name.textContent;
+    jobInput.value = job.textContent;
 }); //открытие попапа по клику кнопки buttonEdit
 
 buttonClose.addEventListener('click', function () {
@@ -24,10 +28,10 @@ function handleFormSubmit (evt) {
                                                 // О том, как это делать, расскажем позже.
 
       // Получите значение полей jobInput и nameInput из свойства value                                         
-
+      let name = document.querySelector('.profile__name');
+      let job = document.querySelector('.profile__description');
     // Выберите элементы, куда должны быть вставлены значения полей
-    let name = document.querySelector('.profile__name');
-    let job = document.querySelector('.profile__description');
+
     // Вставьте новые значения с помощью textContent
     name.textContent = nameInput.value;
     job.textContent = jobInput.value;
