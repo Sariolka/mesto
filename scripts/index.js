@@ -13,8 +13,11 @@ buttonEdit.addEventListener('click', function () {
 }); //открытие попапа по клику кнопки buttonEdit
 
 buttonClose.addEventListener('click', function () {
-    popup.reset();
     popup.classList.remove('popup_opened');
+    let name = document.querySelector('.profile__name');
+    let job = document.querySelector('.profile__description');
+    nameInput.value = name.textContent;
+    jobInput.value = job.textContent;
 }); // закрытие попапа по клику кнопки buttonClose
 
 // Обработчик «отправки» формы, хотя пока
