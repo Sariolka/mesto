@@ -8,12 +8,11 @@
     border: none;
     border-bottom: 1px solid #000;
     width: 358px;
-    padding-bottom: 10px;
+    padding-bottom: 9px;
 }
 
 @media (max-width: 520px) {
     .popup__name {
         width: 238px;
-        padding-bottom: 9px;
     }
 }
