@@ -23,8 +23,7 @@ buttonEdit.addEventListener('click', openPopup); //открытие попапа
 
 buttonClose.addEventListener('click', closePopup); // закрытие попапа по клику кнопки buttonClose
 
-// Обработчик «отправки» формы, хотя пока
-// она никуда отправляться не будет
+// Обработчик «отправки» формы
 function handleFormSubmit (evt) {
     evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
                                                 // Так мы можем определить свою логику отправки.
