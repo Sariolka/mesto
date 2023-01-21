@@ -1,8 +1,8 @@
 .card__photo {
-    width: 282px;
-    border-radius: 10px 10px 0 0;
-    aspect-ratio: 1 / 1;
-    object-position: center;
-    object-fit: cover;
-    vertical-align: bottom;
+  width: 282px;
+  border-radius: 10px 10px 0 0;
+  aspect-ratio: 1 / 1;
+  object-position: center;
+  object-fit: cover;
+  vertical-align: bottom;
 }

@@ -1,19 +1,19 @@
 .popup__input {
-    font-family: 'Inter', Arial, sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 17px;
-    color: #000;
-    border: none;
-    border-bottom: 1px solid #000;
-    width: 358px;
-    padding-bottom: 9px;
-    margin-top: 29px;
+  font-family: 'Inter', Arial, sans-serif;
+ font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #000;
+  border: none;
+  border-bottom: 1px solid #000;
+  width: 358px;
+  padding-bottom: 9px;
+  margin-top: 29px;
 }
 
 @media (max-width: 520px) {
-    .popup__input {
-        width: 238px;
-    }
+  .popup__input {
+    width: 238px;
+  }
 }
