@@ -5,11 +5,12 @@
     background-repeat: no-repeat;
     width: 22px;
     height: 19px;
-    background-color: #fff;
+    background-color: transparent;
     border: none;
     transition: opacity .5s ease;
     margin-top: 4px;
     margin-right: 4px;
+    cursor: pointer;
 }
 
 .card__like:hover {

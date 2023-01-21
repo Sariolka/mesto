@@ -1,4 +1,4 @@
-.popup__name {
+.popup__input {
     font-family: 'Inter', Arial, sans-serif;
     font-style: normal;
     font-weight: 400;
@@ -9,10 +9,11 @@
     border-bottom: 1px solid #000;
     width: 358px;
     padding-bottom: 9px;
+    margin-top: 29px;
 }
 
 @media (max-width: 520px) {
-    .popup__name {
+    .popup__input {
         width: 238px;
     }
 }

@@ -4,9 +4,20 @@ let buttonClose = document.querySelector('.popup__button-close');
 let buttonSubmit = document.querySelector('.popup__button-submit');
 let formElement = document.querySelector('.popup__form');
 // Находим поля формы в DOM
-let nameInput = document.querySelector('.popup__name');
-let jobInput = document.querySelector('.popup__description');
+let nameInput = document.querySelector('.popup__input_form_name');
+let jobInput = document.querySelector('.popup__input_form_description');
+let name = document.querySelector('.profile__name');
+let job = document.querySelector('.profile__description');
 
+function openPopup() {
+    popup.classList.add('popup_opened');
+    nameInput.value = name.textContent;
+    jobInput.value = job.textContent;
+}
+
+function closePopup() {
+    popup.classList.remove('popup_opened');
+}
 
 buttonEdit.addEventListener('click', function () {
     popup.classList.add('popup_opened');
@@ -14,8 +25,6 @@ buttonEdit.addEventListener('click', function () {
 
 buttonClose.addEventListener('click', function () {
     popup.classList.remove('popup_opened');
-    let name = document.querySelector('.profile__name');
-    let job = document.querySelector('.profile__description');
     nameInput.value = name.textContent;
     jobInput.value = job.textContent;
 }); // закрытие попапа по клику кнопки buttonClose
@@ -28,8 +37,6 @@ function handleFormSubmit (evt) {
                                                 // О том, как это делать, расскажем позже.
 
       // Получите значение полей jobInput и nameInput из свойства value                                         
-      let name = document.querySelector('.profile__name');
-      let job = document.querySelector('.profile__description');
     // Выберите элементы, куда должны быть вставлены значения полей
 
     // Вставьте новые значения с помощью textContent
