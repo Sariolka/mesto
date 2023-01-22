@@ -1,7 +1,6 @@
 let popup = document.querySelector('.popup');
 let buttonEdit = document.querySelector('.profile__edit-button');
 let buttonClose = document.querySelector('.popup__button-close');
-let buttonSubmit = document.querySelector('.popup__button-submit');
 let formElement = document.querySelector('.popup__form');
 // Находим поля формы в DOM
 let nameInput = document.querySelector('.popup__input_form_name');

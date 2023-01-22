@@ -3,7 +3,7 @@
   height: 50px;
   background-image: url(../../../images/addbutton.svg);
   background-position: center;
-  background-size: auto;
+  background-size: 22px 22px;
   background-repeat: no-repeat;
   background-color: transparent;
   align-self: center;
@@ -20,10 +20,7 @@
 @media (max-width: 680px) {
   .profile__add-button {
     width: 282px;
-    background-position: center;
-    background-size: auto;
-    background-repeat: no-repeat;
-    background-color: transparent;
     margin-left: 0;
+    background-size: 16px 16px;
   }
 }

@@ -3,9 +3,8 @@
   border: 1px solid #fff;
   width: 24px;
   height: 24px;
-  box-sizing: border-box;
   background-position: center;
-  background-size: auto;
+  background-size: 10px 10px;
   background-repeat: no-repeat;
   background-color: transparent;
   align-self: end;
@@ -23,5 +22,6 @@
     width: 18px;
     height: 18px;
     margin-bottom: 5px;
+    background-size: 7.5px 7.5px;
   }  
 }
