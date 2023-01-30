@@ -24,6 +24,12 @@ const handleOverlayClick = (event) => {
     }
   };
 
+  const closePopupByEscape = (event) => {
+    if (event.key === "Escape" &&  popup.classList.contains('popup_opened')) {
+        closePopup();
+    }
+};
+
 buttonEdit.addEventListener('click', openPopup); //открытие попапа по клику кнопки buttonEdit
 
 buttonClose.addEventListener('click', closePopup); // закрытие попапа по клику кнопки buttonClose
@@ -39,3 +45,4 @@ function handleFormSubmit (evt) {
 // он будет следить за событием “submit” - «отправка»
 formElement.addEventListener('submit', handleFormSubmit);
 popup.addEventListener("click", handleOverlayClick); // закрытие попапа по клику по оверлею
+document.addEventListener("keydown", closePopupByEscape); 
