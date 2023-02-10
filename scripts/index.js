@@ -32,52 +32,78 @@ const buttonClose = document.querySelector('.popup__button-close');
 const formElement = document.querySelector('.popup__form');
 const nameInput = document.querySelector('.popup__input_form_name');
 const jobInput = document.querySelector('.popup__input_form_description');
+const placeInput = document.querySelector('.popup__input_form_place');
+const linkInput = document.querySelector('.popup__input_form_link');
 const username = document.querySelector('.profile__name');
 const job = document.querySelector('.profile__description');
 const buttonAddCard = document.querySelector('.profile__add-button');
+const popupArray = Array.from(document.querySelectorAll('.popup')); //создаю массив попапов
 
-
-//функция открытия окна 
-function openPopup() {
-    popup.classList.add('popup_opened');
+//функция открытия попапа 
+const openPopup = (popup) => {
+  popup.classList.add('popup_opened');
+  document.addEventListener("keydown", closePopupEsc);
 };
 
-//функция закрытия окна
-function closePopup() {
+
+//функция закрытия попапа
+const closePopup = (popup) => {
     popup.classList.remove('popup_opened');
+    document.removeEventListener("keydown", closePopupEsc);
     }; 
 
+popupArray.forEach((popup) => {
+    popup.addEventListener('click', (event) => {
+    if (event.target.classList.contains('popup_opened')) {
+     closePopup(popup);
+    }
+    if (event.target.classList.contains('popup__button-close')) {
+    closePopup(popup);
+    };
+  });
+});
+
+//закрытие по клику на оверлей
 const handleOverlayClick = (event) => {
     if (event.target === event.currentTarget) {
-        closePopup();
+        closePopup(event.currentTarget);
     }
-  }; //закрытие по клику на оверлей
+  };
 
-  const closePopupByEscape = (event) => {
-    if (event.key === "Escape" &&  popup.classList.contains('popup_opened')) {
-        closePopup();
+
+//закрытие по нажатию на клавишу Esc
+  const closePopupEsc = (event) => {
+    if (event.key === "Escape") {
+      const popupOpened = document.querySelector('.popup_opened');
+        closePopup(popupOpened);
     }
-}; //закрытие по нажатию на клавишу Esc
+}; 
 
+
+//открытие попапа по клику кнопки buttonEdit
 buttonEdit.addEventListener('click', () => {
-    nameInput.value = username.textContent;
-    jobInput.value = job.textContent;
-    openPopup(popupProfile);
-}); //открытие попапа по клику кнопки buttonEdit
+  nameInput.value = username.textContent;
+  jobInput.value = job.textContent;
+  openPopup(popupProfile);
+});
 
-buttonClose.addEventListener('click', closePopup); // закрытие попапа по клику кнопки buttonClose
 
-buttonAddCard.addEventListener('click', openPopup(popupAddCard));
+//открытие попапа для добавления карточки
+buttonAddCard.addEventListener('click', () => {
+  openPopup(popupAddCard);
+});
+
+
 
 // Обработчик «отправки» формы
-function handleFormSubmit (evt) {
-    evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+const handleFormSubmit = (event) => {
+    event.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
     username.textContent = nameInput.value;
     job.textContent = jobInput.value;
-    closePopup();
+    closePopup(popupProfile);
 };
+
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»
 formElement.addEventListener('submit', handleFormSubmit);
 popup.addEventListener("click", handleOverlayClick); // закрытие попапа по клику по оверлею
-document.addEventListener("keydown", closePopupByEscape); 
