@@ -38,6 +38,9 @@ const username = document.querySelector('.profile__name');
 const job = document.querySelector('.profile__description');
 const buttonAddCard = document.querySelector('.profile__add-button');
 const popupArray = Array.from(document.querySelectorAll('.popup')); //создаю массив попапов
+const cardsList = document.querySelector('.cards');
+const cardTemplate = document.querySelector('.card-template').content; 
+
 
 //функция открытия попапа 
 const openPopup = (popup) => {
@@ -51,6 +54,7 @@ const closePopup = (popup) => {
     popup.classList.remove('popup_opened');
     document.removeEventListener("keydown", closePopupEsc);
     }; 
+
 
 popupArray.forEach((popup) => {
     popup.addEventListener('click', (event) => {
@@ -95,6 +99,33 @@ buttonAddCard.addEventListener('click', () => {
 
 
 
+
+
+const createCard = (item) => {
+  const cardItem = cardTemplate.content.cloneNode(true); //клонирую
+  const buttonLike = cardItem.querySelector('.card__like');
+  const buttonDelete = cardItem.querySelector('.card__delete');
+  cardItem.querySelector('.card__photo').src = item.link;
+  cardItem.querySelector('.card__title').textContent = item.name;
+  buttonLike.addEventListener('click', (event) => {
+    event.target.classList.toggle('card__like_active');
+  });
+  buttonDelete.addEventListener('click', () => {
+    createCard.remove();
+  });
+  return cardItem;
+};
+
+
+
+const renderCard = () => {
+
+}
+
+
+
+
+
 // Обработчик «отправки» формы
 const handleFormSubmit = (event) => {
     event.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
@@ -107,3 +138,10 @@ const handleFormSubmit = (event) => {
 // он будет следить за событием “submit” - «отправка»
 formElement.addEventListener('submit', handleFormSubmit);
 popup.addEventListener("click", handleOverlayClick); // закрытие попапа по клику по оверлею
+
+const addCardSubmit = (event) => {
+    event.preventDefault();
+    
+    
+    closePopup(popupAddCard);
+};
