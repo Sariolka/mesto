@@ -42,7 +42,7 @@ const buttonAddCard = document.querySelector('.profile__add-button');
 const popupArray = Array.from(document.querySelectorAll('.popup')); //создаю массив попапов
 const cardsList = document.querySelector('.cards');
 const template = document.querySelector('.card-template');
-const popupOpenPhoto = document.querySelector('.popup_photo');
+const popupOpenPhoto = document.querySelector('.popup__photo');
 const popupPhoto =popupOpenPhoto.querySelector('.popup__photo-open');
 const popupPhotoTitle = popupOpenPhoto.querySelector('.popup__photo-title');
 

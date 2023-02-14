@@ -4,5 +4,7 @@
   flex-direction: column;
   margin: auto;
   width: auto;
-  height: auto;  
+  height: auto;
+  border-radius: 0px;
+  background-color: transparent;
 }
