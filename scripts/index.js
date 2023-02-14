@@ -28,7 +28,6 @@ const initialCards = [
 const formElement = document.querySelector('.popup__container');
 const popupProfile = document.querySelector('.popup_profile');
 const popupAddCard = document.querySelector('.popup_card');
-const popupPhoto = document.querySelector('.popup_photo');
 const buttonEdit = document.querySelector('.profile__edit-button');
 const buttonClose = document.querySelector('.popup__button-close');
 const formPlace = document.querySelector('.popup__form-place');
@@ -42,9 +41,11 @@ const job = document.querySelector('.profile__description');
 const buttonAddCard = document.querySelector('.profile__add-button');
 const popupArray = Array.from(document.querySelectorAll('.popup')); //создаю массив попапов
 const cardsList = document.querySelector('.cards');
-const template = document.querySelector('.card-template');  
-const popupPhotoTitle = popupPhoto.querySelector('.popup__photo-title');
-const popupPhotoOpen = popupPhoto.querySelector('.popup__photo-open');
+const template = document.querySelector('.card-template');
+const popupOpenPhoto = document.querySelector('.popup_photo');
+const popupPhoto =popupOpenPhoto.querySelector('.popup__photo-open');
+const popupPhotoTitle = popupOpenPhoto.querySelector('.popup__photo-title');
+
 
 
 const openPopup = (popup) => { //функция открытия попапа 
@@ -58,7 +59,7 @@ const closePopup = (popup) => { //функция закрытия попапа
     }; 
 
 popupArray.forEach((popup) => { // слушатель на каждый попап на закрытие
-    popup.addEventListener('click', (event) => {
+    popup.addEventListener('mousedown', (event) => {
     if (event.target.classList.contains('popup_opened')) {
      closePopup(popup);
     } else if (event.target.classList.contains('popup__button-close')) {
@@ -81,6 +82,10 @@ const handleOverlayClick = (event) => { //закрытие попапа по к�
     };
 }; 
 
+popupArray.forEach((popup) => { // слушатель на каждый попап на закрытие
+  popup.addEventListener('click', handleOverlayClick);
+});
+
 buttonEdit.addEventListener('click', () => { //слушатель на открытие попапа редактирования профиля
   nameInput.value = username.textContent;
   jobInput.value = job.textContent;
@@ -99,14 +104,20 @@ const cardLike = (event) => { //функция поставить лайк на 
   event.target.classList.toggle('card__like_active');
 };
 
-
-
 const createCard = (item) => { // создание карточки
   const cardItem = template.content.cloneNode(true); //клонирую элементы с их содержимым из массива карточек
   const buttonLike = cardItem.querySelector('.card__like'); 
   const buttonDelete = cardItem.querySelector('.card__delete');
-  cardItem.querySelector('.card__photo').src = item.link;
-  cardItem.querySelector('.card__title').textContent = item.name;
+  const cardItemTitle = cardItem.querySelector('.card__title');
+  const cardItemPhoto = cardItem.querySelector('.card__photo');
+  cardItemPhoto.src = item.link;
+  cardItemTitle.textContent = item.name;
+  cardItemPhoto.addEventListener('click',() => {
+    popupPhotoTitle.textContent = item.name;
+    popupPhoto.src = item.link;
+    popupPhoto.alt = item.name;
+    openPopup(popupOpenPhoto);
+  });
   buttonDelete.addEventListener('click', cardDelete);
   buttonLike.addEventListener('click', cardLike);
   return cardItem;
@@ -139,7 +150,6 @@ const handleFormSubmit = (event) => { // Обработчик «отправки
   closePopup(popupProfile);
 };
 
-
 formPlace.addEventListener('submit', addCardSubmit);
 formProfile.addEventListener('submit', handleFormSubmit);
-popup.addEventListener("click", handleOverlayClick); 
+
