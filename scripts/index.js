@@ -148,4 +148,3 @@ const handleFormSubmit = (event) => { // Обработчик «отправки
 
 formPlace.addEventListener('submit', addCardSubmit); // слушатель на форму добавления карточки
 formProfile.addEventListener('submit', handleFormSubmit); // слушатель на форму редактирования профиля
-
