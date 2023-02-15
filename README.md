@@ -3,8 +3,9 @@
 ## Описание проекта  
 Проект выполнен в рамках учебы на курсе *__Веб-разработчик__* Яндекс.Практикум. В настоящее время интерактивная страница позволяет пользователю менять информацию о себе, добавлять и удалять карточки с фотографиями, а также ставить лайк.
 
-* [Ссылка на макет в Figma](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1)  
+* [Ссылка на макет в Figma проектная работа 4](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1)
 
+* [Ссылка на макет в Figma проектная работа 5] (https://www.figma.com/file/bjyvbKKJN2naO0ucURl2Z0/JavaScript.-Sprint-5?node-id=0%3A1)
 ## Стек
 * HTML  
 * CSS  
