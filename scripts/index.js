@@ -25,11 +25,10 @@ const initialCards = [
     }
   ];
 
-const formElement = document.querySelector('.popup__container');
+
 const popupProfile = document.querySelector('.popup_profile');
 const popupAddCard = document.querySelector('.popup_card');
 const buttonEdit = document.querySelector('.profile__edit-button');
-const buttonClose = document.querySelector('.popup__button-close');
 const formPlace = document.querySelector('.popup__form-place');
 const formProfile = document.querySelector('.popup__form-profile');
 const nameInput = formProfile.querySelector('.popup__input_form_name');
@@ -46,41 +45,21 @@ const popupOpenPhoto = document.querySelector('.popup_photo');
 const popupPhoto =popupOpenPhoto.querySelector('.popup__photo-open');
 const popupPhotoTitle = popupOpenPhoto.querySelector('.popup__photo-title');
 
-
 const openPopup = (popup) => { //функция открытия попапа 
   popup.classList.add('popup_opened');
-  document.addEventListener('keydown', closePopupEsc);
 };
 
 const closePopup = (popup) => { //функция закрытия попапа
   popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closePopupEsc);
 }; 
 
-const handleOverlayClick = (event) => { //закрытие попапа по клику на оверлей
-  if (event.target === event.currentTarget) {
-    closePopup(event.currentTarget);
-  }
-}; 
-
-const closePopupEsc = (event) => { //закрытие попапа по нажатию на клавишу Esc
-  const popupOpened = document.querySelector('.popup_opened');
-    if (event.key === "Escape") {
-    closePopup(popupOpened);
-  };
-}; 
-
-popupArray.forEach((popup) => { // слушатель на каждый попап на закрытие по 
+popupArray.forEach((popup) => { // слушатель на каждый попап на закрытие по оверлей и кнопке закрытия попапа
   popup.addEventListener('mousedown', (event) => {
-    if (event.target.classList.contains('popup_opened')) {
+    if (event.target.classList.contains('popup_opened') || event.target.classList.contains('popup__button-close')) {
     closePopup(popup);
-    } else if (event.target.classList.contains('popup__button-close')) {
-    closePopup(popup);
-    };
+    }
   });
-  popup.addEventListener('click', handleOverlayClick);
 });
-
 
 buttonEdit.addEventListener('click', () => { //слушатель на открытие попапа редактирования профиля
   nameInput.value = username.textContent;
@@ -92,11 +71,11 @@ buttonAddCard.addEventListener('click', () => { //слушатель на отк
   openPopup(popupAddCard);
 });
 
-const cardDelete = (event) => { // функция удаления карточки
+const deleteCard = (event) => { // функция удаления карточки
   event.target.closest('.card').remove();
 };
 
-const cardLike = (event) => { //функция поставить лайк на фотографию
+const likeCard = (event) => { //функция поставить лайк на фотографию
   event.target.classList.toggle('card__like_active');
 };
 
@@ -114,10 +93,10 @@ const createCard = (item) => { // создание карточки
     popupPhoto.alt = item.name;
     openPopup(popupOpenPhoto);
   });
-  buttonDelete.addEventListener('click', cardDelete);
-  buttonLike.addEventListener('click', cardLike);
+  buttonDelete.addEventListener('click', deleteCard);
+  buttonLike.addEventListener('click', likeCard);
   return cardItem;
-  };
+};
 
 const renderCard = (cardsList,item) => { //отрисовка карточки
   cardsList.prepend(createCard(item));
@@ -129,17 +108,16 @@ initialCards.forEach (item => {
 
 const addCardSubmit = (event) => { // обработчик отправки формы добавления карточки
   event.preventDefault();
-  const cardItem = {
+  cardItem = {
     name: placeInput.value,
     link: linkInput.value
   };
   renderCard(cardsList,cardItem);
   closePopup(popupAddCard);
-  placeInput.value = '';
-  linkInput.value = '';
+  formPlace.reset();
 };
 
-const handleFormSubmit = (event) => { // Обработчик «отправки» формы данных профиля
+const editProfileSubmit = (event) => { // Обработчик «отправки» формы данных профиля
   event.preventDefault();
   username.textContent = nameInput.value;
   job.textContent = jobInput.value;
@@ -147,4 +125,4 @@ const handleFormSubmit = (event) => { // Обработчик «отправки
 };
 
 formPlace.addEventListener('submit', addCardSubmit); // слушатель на форму добавления карточки
-formProfile.addEventListener('submit', handleFormSubmit); // слушатель на форму редактирования профиля
+formProfile.addEventListener('submit', editProfileSubmit); // слушатель на форму редактирования профиля
