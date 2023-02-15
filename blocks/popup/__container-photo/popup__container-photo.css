@@ -8,3 +8,9 @@
   border-radius: 0px;
   background-color: transparent;
 }
+
+@media (max-width: 520px) {
+  .popup__container-photo {
+    width: 282px;
+  }
+}

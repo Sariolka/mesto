@@ -9,7 +9,7 @@
   right: -40px;
   background-color: transparent;
   background-size: cover;
- cursor: pointer;
+  cursor: pointer;
 }
 
 .popup__button-close:hover {
