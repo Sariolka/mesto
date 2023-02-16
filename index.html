@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mesto</title>
     <link rel="stylesheet" href="./pages/index.css">
-
+    <script defer src="./scripts/constants.js"></script>  
+    <script defer src="./scripts/index.js"></script>  
 </head>
 <body>
   <div class="page">
@@ -23,7 +24,7 @@
                 <p class="profile__description">Исследователь океана</p>
               </div>
           </div>
-          <button type="button" aria-label= "Добавить фотографию" class="profile__add-button"></button>
+          <button type="button" aria-label= "Создать карточку с фотографией" class="profile__add-button"></button>
         </section>
         <section class="elements" aria-label="Природа России">
           <ul class="cards"></ul>
@@ -68,7 +69,7 @@
  </div>
  <template class="card-template">
   <li class="card">
-    <button type="button" aria-label= "Удалить фотографию" class="card__delete"></button>
+    <button type="button" aria-label= "Удалить карточку с фотографией" class="card__delete"></button>
     <img src="#" alt="Подпись к фотографии" class="card__photo">
     <div class="card__footer">
       <h2 class="card__title"></h2>
@@ -76,7 +77,5 @@
     </div>
   </li>
 </template>
-<script defer src="./scripts/constants.js"></script>  
-<script defer src="./scripts/index.js"></script>  
 </body>
 </html>

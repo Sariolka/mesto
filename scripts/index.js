@@ -12,7 +12,7 @@ const job = document.querySelector('.profile__description');
 const buttonAddCard = document.querySelector('.profile__add-button');
 const popupArray = Array.from(document.querySelectorAll('.popup')); //создаю массив попапов
 const cardsList = document.querySelector('.cards');
-const template = document.querySelector('.card-template');
+const template = document.querySelector('.card-template').content;
 const popupOpenPhoto = document.querySelector('.popup_photo');
 const popupPhoto =popupOpenPhoto.querySelector('.popup__photo-open');
 const popupPhotoTitle = popupOpenPhoto.querySelector('.popup__photo-title');
@@ -36,7 +36,7 @@ popupArray.forEach((popup) => { // слушатель на каждый попа
 buttonEdit.addEventListener('click', () => { //слушатель на открытие попапа редактирования профиля
   nameInput.value = username.textContent;
   jobInput.value = job.textContent;
-  openPopup(popupProfile)
+  openPopup(popupProfile);
 });
 
 buttonAddCard.addEventListener('click', () => { //слушатель на открытие попапа добавления карточки
@@ -52,7 +52,7 @@ const likeCard = (event) => { //функция поставить лайк на 
 };
 
 const createCard = (item) => { // создание карточки
-  const cardItem = template.content.firstElementChild.cloneNode(true); //клонирую элементы с их содержимым
+  const cardItem = template.querySelector('.card').cloneNode(true);
   const buttonLike = cardItem.querySelector('.card__like'); 
   const buttonDelete = cardItem.querySelector('.card__delete');
   const cardItemTitle = cardItem.querySelector('.card__title');
@@ -77,7 +77,7 @@ const renderCard = (cardsList,item) => { //отрисовка карточки
 initialCards.forEach (item => {
   renderCard(cardsList,item);
 });
-
+   
 const addCardSubmit = (event) => { // обработчик отправки формы добавления карточки
   event.preventDefault();
   cardItem = {
