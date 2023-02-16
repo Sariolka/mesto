@@ -1,31 +1,3 @@
-const initialCards = [
-    {
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-      name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-  ];
-
-
 const popupProfile = document.querySelector('.popup_profile');
 const popupAddCard = document.querySelector('.popup_card');
 const buttonEdit = document.querySelector('.profile__edit-button');
@@ -56,7 +28,7 @@ const closePopup = (popup) => { //функция закрытия попапа
 popupArray.forEach((popup) => { // слушатель на каждый попап на закрытие по оверлей и кнопке закрытия попапа
   popup.addEventListener('mousedown', (event) => {
     if (event.target.classList.contains('popup_opened') || event.target.classList.contains('popup__button-close')) {
-    closePopup(popup);
+      closePopup(popup);
     }
   });
 });
@@ -80,7 +52,7 @@ const likeCard = (event) => { //функция поставить лайк на 
 };
 
 const createCard = (item) => { // создание карточки
-  const cardItem = template.content.cloneNode(true); //клонирую элементы с их содержимым из массива карточек
+  const cardItem = template.content.firstElementChild.cloneNode(true); //клонирую элементы с их содержимым
   const buttonLike = cardItem.querySelector('.card__like'); 
   const buttonDelete = cardItem.querySelector('.card__delete');
   const cardItemTitle = cardItem.querySelector('.card__title');
