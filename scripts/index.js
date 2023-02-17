@@ -58,6 +58,7 @@ const createCard = (item) => { // создание карточки
   const cardItemTitle = cardItem.querySelector('.card__title');
   const cardItemPhoto = cardItem.querySelector('.card__photo');
   cardItemPhoto.src = item.link;
+  cardItemPhoto.alt = item.name;
   cardItemTitle.textContent = item.name;
   cardItemPhoto.addEventListener('click',() => {
     popupPhotoTitle.textContent = item.name;
