@@ -99,3 +99,35 @@ const editProfileSubmit = (event) => { // Обработчик «отправк�
 
 formPlace.addEventListener('submit', addCardSubmit); // слушатель на форму добавления карточки
 formProfile.addEventListener('submit', editProfileSubmit); // слушатель на форму редактирования профиля
+
+const popupForm = document.querySelector('.popup__form');
+const popupInput = popupForm.querySelector('.popup__input');
+const popupFormError = popupForm.querySelector(`.${popupInput.id}-error`);
+
+const showInputError = (element, errorMessage) => {
+  element.classList.add('popup__input_error');
+  popupFormError.textContent = errorMessage;
+  popupFormError.classList.add('popup__error');
+};
+
+const hideInputError = (element) => {
+  element.classList.remove('popup__input_error');
+  popupFormError.classList.remove('popup__error');
+  popupFormError.textContent = '';
+};
+
+
+const enableValidation = () => { //функция, которая находит все формы на странице и перебирает их
+  const formList = Array.from(document.querySelectorAll('.popup__form'));
+  formList.forEach((formElement) => {
+    setEventListeners(formElement);
+  });
+};
+
+enableValidation();
+
+
+
+const isValid = () => {
+  if(!)
+}
