@@ -19,11 +19,20 @@ const popupPhotoTitle = popupOpenPhoto.querySelector('.popup__photo-title');
 
 const openPopup = (popup) => { //функция открытия попапа 
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closePopupByEsc);
 };
 
 const closePopup = (popup) => { //функция закрытия попапа
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closePopupByEsc);
 }; 
+
+const closePopupByEsc = (evt) => { //Закрытие Popup кнопкой Escape
+  const popupOpened = document.querySelector('.popup_opened');
+  if (evt.key === 'Escape') {
+    closePopup(popupOpened);
+  };
+}
 
 popupArray.forEach((popup) => { // слушатель на каждый попап на закрытие по оверлей и кнопке закрытия попапа
   popup.addEventListener('mousedown', (event) => {
@@ -99,47 +108,3 @@ const editProfileSubmit = (event) => { // Обработчик «отправк�
 
 formPlace.addEventListener('submit', addCardSubmit); // слушатель на форму добавления карточки
 formProfile.addEventListener('submit', editProfileSubmit); // слушатель на форму редактирования профиля
-
-
-const showInputError = (formElement, inputElement, errorMessage) => {// функция показывает сообщение об ошибке
-  const errorElement =  formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.add('popup__input_error-type');
-  errorElement.textContent = errorMessage;
-  errorElement.classList.add('popup__input-error');
-};
-
-const hideInputError = (formElement) => { //функция скрывает сообщение об ошибке
-  const errorElement =  formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.remove('popup__input_error-type');
-  errorElement.classList.remove('popup__input-error');
-  errorElement.textContent = '';
-};
-
-const isValid = (formElement, inputElement) => {
-  if(!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage);
-  } else {
-    hideInputError(formElement, inputElement);
-  }
-};
-
-const setEventListeners = (formElement) => {
-  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
-  inputList.forEach((inputElement) => {
-    inputElement.addEventListener('input', () => {
-      isValid(formElement, inputElement);
-    });
-  });
-};
-
-const enableValidation = () => { //функция, которая находит все формы на странице и перебирает их
-  const formList = Array.from(document.querySelectorAll('.popup__form'));
-  formList.forEach((formElement) => {
-    formElement.addEventListener('submit', function (evt) {
-      evt.preventDefault();
-    });
-    setEventListeners(formElement);
-  });
-};
-
-enableValidation();
