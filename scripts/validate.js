@@ -13,39 +13,38 @@ const hideInputError = (formElement, inputElement, config) => { //функция
   errorElement.classList.remove(config.errorClass);
 }
   
-const checkInputValidity = (formElement, inputElement, config) => { // функция, которая проверяет все инпуты формы и скрывает/показывает ошибку
-  if(!inputElement.validity.valid) {
+const checkInputValidity = (formElement, inputElement, config) => { // функция, которая проверяет инпут на валидность и 
+  if(!inputElement.validity.valid) {                                 //в зависимости от результата, запускает функцию показа/скрытия ошибки
     showInputError(formElement, inputElement, inputElement.validationMessage, config);
   } else {
     hideInputError(formElement, inputElement, config);
   }
 }
   
-const hasInvalidInput = (inputList) => { //функция, которая проверяет массив инпутов на валидность
+const hasInvalidInput = (inputList) => { //функция, которая проверяет каждый инпут на валидность
   return inputList.some((inputElement) => {
     return !inputElement.validity.valid;
   });
 }
 
-const disableButton = (buttonElement, config) => {
+const disableButton = (buttonElement, config) => { //функция, блокирующая кнопку сабмит
   buttonElement.classList.add(config.inactiveButtonClass);
   buttonElement.setAttribute('disabled', true);
 }
 
-const enableButton = (buttonElement, config) => {
+const enableButton = (buttonElement, config) => { //функция, разблокирующая кнопку сабмит
   buttonElement.classList.remove(config.inactiveButtonClass);
     buttonElement.removeAttribute('disabled');
 }
 
-const toggleButtonState = (inputList, buttonElement, config) => {
+const toggleButtonState = (inputList, buttonElement, config) => { //функция, меняющая состояние кнопки сабмит
   if (hasInvalidInput(inputList)) {
     disableButton(buttonElement, config);
   } else {
     enableButton(buttonElement, config);
   }
 }
-const setEventListeners = (formElement, config) => {
-  //слушатель на инпуты для запуска функции проверки валидности 
+const setEventListeners = (formElement, config) => { //слушатель на инпуты для запуска функции проверки валидности 
   const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
   const buttonElement = formElement.querySelector(config.submitButtonSelector);
   toggleButtonState(inputList, buttonElement, config);
@@ -57,7 +56,7 @@ const setEventListeners = (formElement, config) => {
   });
 } 
 
-const resetForm = (formElement, config) => {
+const resetForm = (formElement, config) => { //функция начальной загрузки формы 
   const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
   const buttonElement = formElement.querySelector(config.submitButtonSelector);
   toggleButtonState(inputList, buttonElement, config);
@@ -66,11 +65,11 @@ const resetForm = (formElement, config) => {
   });
 }
 
-const disableSubmit = (evt) => {
+const disableSubmit = (evt) => {// функция, отменяющая отправку формы и перезагрузку страницы
   evt.preventDefault();
 }
 
-const enableValidation = (config) => {
+const enableValidation = (config) => { // функция валидации формы
   const formList = Array.from(document.querySelectorAll(config.formSelector));
   formList.forEach((formElement) => {
     formElement.addEventListener('submit', disableSubmit);
