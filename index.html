@@ -50,7 +50,7 @@
                 placeholder="Имя" 
                 minlength="2" 
                 maxlength="40">
-                <span class="profile-name-error popup__error popup__error_visible"></span>
+                <span class="profile-name-error popup__error popup__error_visible popup__error-name"></span>
                 <input 
                 id="description" 
                 type="text" 
@@ -60,7 +60,7 @@
                 placeholder="О себе" 
                 minlength="2" 
                 maxlength="200">
-                <span class="description-error popup__error popup__error_visible"></span>
+                <span class="description-error popup__error popup__error_visible popup__error-description"></span>
               </fieldset>
               <button type="submit" class="popup__button-submit" disabled>Сохранить</button>
             </form>
@@ -81,7 +81,7 @@
                 placeholder="Название" 
                 minlength="2" 
                 maxlength="30">
-                <span class="place-error popup__error popup__error_visible"></span>
+                <span class="place-error popup__error popup__error-place popup__error_visible"></span>
                 <input
                 id="link"
                 type="url" 
@@ -89,7 +89,7 @@
                 name="link"
                 required 
                 placeholder="Ссылка на картинку">
-                <span class="link-error popup__error popup__error_visible"></span>
+                <span class="link-error popup__error popup__error-link popup__error_visible"></span>
               </fieldset>
               <button type="submit" class="popup__button-submit" disabled>Создать</button>
             </form>
