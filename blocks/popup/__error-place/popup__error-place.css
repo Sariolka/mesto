@@ -2,3 +2,11 @@
   position: absolute;
   top: 62px;
 }
+
+@media (max-width: 520px) {
+  .popup__error-place {
+    position: relative;
+    top: 0;
+    margin-top: 5px;
+  }
+}
