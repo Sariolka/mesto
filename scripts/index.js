@@ -100,7 +100,6 @@ const addCardSubmit = (event) => { // обработчик отправки фо
   };
   renderCard(cardsList,cardItem);
   closePopup(popupAddCard);
-  formPlace.reset();
 };
 
 const editProfileSubmit = (event) => { // Обработчик «отправки» формы данных профиля
