@@ -17,6 +17,7 @@ const popupOpenPhoto = document.querySelector('.popup_photo');
 const popupPhoto =popupOpenPhoto.querySelector('.popup__photo-open');
 const popupPhotoTitle = popupOpenPhoto.querySelector('.popup__photo-title');
 
+
 const openPopup = (popup) => { //функция открытия попапа 
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closePopupByEsc);
@@ -46,10 +47,13 @@ buttonEdit.addEventListener('click', () => { //слушатель на откр�
   nameInput.value = username.textContent;
   jobInput.value = job.textContent;
   openPopup(popupProfile);
-});
+  resetForm(formProfile, formValidationConfig);
+  });
 
 buttonAddCard.addEventListener('click', () => { //слушатель на открытие попапа добавления карточки
   openPopup(popupAddCard);
+  resetForm(formPlace, formValidationConfig);
+  formPlace.reset();
 });
 
 const deleteCard = (event) => { // функция удаления карточки
@@ -69,7 +73,7 @@ const createCard = (item) => { // создание карточки
   cardItemPhoto.src = item.link;
   cardItemPhoto.alt = item.name;
   cardItemTitle.textContent = item.name;
-  cardItemPhoto.addEventListener('click',() => {
+  cardItemPhoto.addEventListener('click', () => {
     popupPhotoTitle.textContent = item.name;
     popupPhoto.src = item.link;
     popupPhoto.alt = item.name;
@@ -85,7 +89,7 @@ const renderCard = (cardsList,item) => { //отрисовка карточки
 };
 
 initialCards.forEach (item => {
-  renderCard(cardsList,item);
+  renderCard(cardsList, item);
 });
    
 const addCardSubmit = (event) => { // обработчик отправки формы добавления карточки
@@ -108,3 +112,4 @@ const editProfileSubmit = (event) => { // Обработчик «отправк�
 
 formPlace.addEventListener('submit', addCardSubmit); // слушатель на форму добавления карточки
 formProfile.addEventListener('submit', editProfileSubmit); // слушатель на форму редактирования профиля
+
