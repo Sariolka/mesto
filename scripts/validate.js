@@ -33,7 +33,7 @@ const disableButton = (buttonElement, config) => { //функция, блоки�
 }
 
 const enableButton = (buttonElement, config) => { //функция, разблокирующая кнопку сабмит
-  buttonElement.classList.remove(config.inactiveButtonClass);
+    buttonElement.classList.remove(config.inactiveButtonClass);
     buttonElement.removeAttribute('disabled');
 }
 
@@ -59,9 +59,9 @@ const setEventListeners = (formElement, config) => { //слушатель на �
 const resetForm = (formElement, config) => { //функция обновления формы при открытии попапа
   const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
   const buttonElement = formElement.querySelector(config.submitButtonSelector);
-  toggleButtonState(inputList, buttonElement, config);
   inputList.forEach((inputElement) => {
   hideInputError(formElement, inputElement, config);
+  toggleButtonState(inputList, buttonElement, config);
   });
 }
 

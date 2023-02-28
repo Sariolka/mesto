@@ -1,5 +1,5 @@
-const popupProfile = document.querySelector('.popup_profile');
-const popupAddCard = document.querySelector('.popup_card');
+const popupProfile = document.querySelector('.popup_type_profile-edit');
+const popupAddCard = document.querySelector('.popup_type_card-create');
 const buttonEdit = document.querySelector('.profile__edit-button');
 const formPlace = document.querySelector('.popup__form-place');
 const formProfile = document.querySelector('.popup__form-profile');
@@ -13,10 +13,9 @@ const buttonAddCard = document.querySelector('.profile__add-button');
 const popupArray = Array.from(document.querySelectorAll('.popup')); //создаю массив попапов
 const cardsList = document.querySelector('.cards');
 const template = document.querySelector('.card-template').content;
-const popupOpenPhoto = document.querySelector('.popup_photo');
+const popupOpenPhoto = document.querySelector('.popup_type_photo-full');
 const popupPhoto =popupOpenPhoto.querySelector('.popup__photo-open');
 const popupPhotoTitle = popupOpenPhoto.querySelector('.popup__photo-title');
-
 
 const openPopup = (popup) => { //функция открытия попапа 
   popup.classList.add('popup_opened');
@@ -29,8 +28,8 @@ const closePopup = (popup) => { //функция закрытия попапа
 }; 
 
 const closePopupByEsc = (evt) => { //Закрытие Popup кнопкой Escape
-  const popupOpened = document.querySelector('.popup_opened');
   if (evt.key === 'Escape') {
+    const popupOpened = document.querySelector('.popup_opened');
     closePopup(popupOpened);
   };
 }
@@ -46,14 +45,15 @@ popupArray.forEach((popup) => { // слушатель на каждый попа
 buttonEdit.addEventListener('click', () => { //слушатель на открытие попапа редактирования профиля
   nameInput.value = username.textContent;
   jobInput.value = job.textContent;
+  resetForm(formProfile, formValidationConfig); //заменить функцию
+  
   openPopup(popupProfile);
-  resetForm(formProfile, formValidationConfig);
-  });
+});
 
 buttonAddCard.addEventListener('click', () => { //слушатель на открытие попапа добавления карточки
-  openPopup(popupAddCard);
-  resetForm(formPlace, formValidationConfig);
   formPlace.reset();
+  resetForm(formPlace, formValidationConfig);  // заменить функцию
+  openPopup(popupAddCard);
 });
 
 const deleteCard = (event) => { // функция удаления карточки
