@@ -59,9 +59,9 @@ const setEventListeners = (formElement, config) => { //слушатель на �
 const resetForm = (formElement, config) => { //функция обновления формы при открытии попапа
   const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
   const buttonElement = formElement.querySelector(config.submitButtonSelector);
+  toggleButtonState(inputList, buttonElement, config);
   inputList.forEach((inputElement) => {
   hideInputError(formElement, inputElement, config);
-  toggleButtonState(inputList, buttonElement, config);
   });
 }
 

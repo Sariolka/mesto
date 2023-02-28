@@ -45,8 +45,7 @@ popupArray.forEach((popup) => { // слушатель на каждый попа
 buttonEdit.addEventListener('click', () => { //слушатель на открытие попапа редактирования профиля
   nameInput.value = username.textContent;
   jobInput.value = job.textContent;
-  resetForm(formProfile, formValidationConfig); //заменить функцию
-  
+  resetForm(formProfile, formValidationConfig); //заменить функцию 
   openPopup(popupProfile);
 });
 
@@ -99,7 +98,7 @@ const addCardSubmit = (event) => { // обработчик отправки фо
     link: linkInput.value
   };
   renderCard(cardsList,cardItem);
-  event.target.reset();
+  formPlace.reset();
   closePopup(popupAddCard);
 };
 
