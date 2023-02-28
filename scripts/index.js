@@ -45,13 +45,13 @@ popupArray.forEach((popup) => { // слушатель на каждый попа
 buttonEdit.addEventListener('click', () => { //слушатель на открытие попапа редактирования профиля
   nameInput.value = username.textContent;
   jobInput.value = job.textContent;
-  resetForm(formProfile, formValidationConfig); //заменить функцию 
+  resetForm(formProfile, formValidationConfig);  
   openPopup(popupProfile);
 });
 
 buttonAddCard.addEventListener('click', () => { //слушатель на открытие попапа добавления карточки
   formPlace.reset();
-  resetForm(formPlace, formValidationConfig);  // заменить функцию
+  resetForm(formPlace, formValidationConfig);  
   openPopup(popupAddCard);
 });
 
