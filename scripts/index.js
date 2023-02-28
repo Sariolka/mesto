@@ -97,8 +97,7 @@ const addCardSubmit = (event) => { // обработчик отправки фо
     name: placeInput.value,
     link: linkInput.value
   };
-  renderCard(cardsList,cardItem);
-  formPlace.reset();
+  renderCard(cardsList,cardItem); 
   closePopup(popupAddCard);
 };
 
