@@ -13,7 +13,7 @@ const hideInputError = (formElement, inputElement, config) => { //функция
   errorElement.classList.remove(config.errorClass);
 }
   
-const checkInputValidity = (formElement, inputElement, config) => { // функция, которая проверяет инпут на валидность и 
+const checkInputValidity = (formElement, inputElement, config) => { // функция, которая проверяет инпут на валидность и, 
   if(!inputElement.validity.valid) {                                 //в зависимости от результата, запускает функцию показа/скрытия ошибки
     showInputError(formElement, inputElement, inputElement.validationMessage, config);
   } else {
@@ -44,7 +44,7 @@ const toggleButtonState = (inputList, buttonElement, config) => { //функци
     enableButton(buttonElement, config);
   }
 }
-const setEventListeners = (formElement, config) => { //слушатель на инпуты для запуска функции проверки валидности 
+const setEventListeners = (formElement, config) => { //слушатель на инпуты для запуска функции проверки валидности
   const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
   const buttonElement = formElement.querySelector(config.submitButtonSelector);
   toggleButtonState(inputList, buttonElement, config);
@@ -56,7 +56,7 @@ const setEventListeners = (formElement, config) => { //слушатель на �
   });
 } 
 
-const resetForm = (formElement, config) => { //функция начальной загрузки формы 
+const resetForm = (formElement, config) => { //функция обновления формы при открытии попапа
   const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
   const buttonElement = formElement.querySelector(config.submitButtonSelector);
   toggleButtonState(inputList, buttonElement, config);
