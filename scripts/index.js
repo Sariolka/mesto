@@ -87,7 +87,7 @@ const renderCard = (cardsList,item) => { //отрисовка карточки
   cardsList.prepend(createCard(item));
 };
 
-initialCards.forEach (item => {
+initialCards.forEach ((item) => {
   renderCard(cardsList, item);
 });
    
