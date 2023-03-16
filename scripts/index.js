@@ -63,6 +63,15 @@ const likeCard = (event) => { //функция поставить лайк на 
   event.target.classList.toggle('card__like_active');
 };
 
+ function handleCardClick(name, link) {
+  popupPhotoTitle.textContent = item.name;
+  popupPhoto.src = item.link;
+  popupPhoto.alt = item.name;
+  openPopup(popupOpenPhoto);
+}
+
+
+
 const createCard = (item) => { // создание карточки
   const cardItem = template.querySelector('.card').cloneNode(true);
   const buttonLike = cardItem.querySelector('.card__like'); 
@@ -83,7 +92,7 @@ const createCard = (item) => { // создание карточки
   return cardItem;
 };
 
-const renderCard = (cardsList,item) => { //отрисовка карточки
+const renderCard = (cardsList,item) => { //помещение карточки в готовую верстку
   cardsList.prepend(createCard(item));
 };
 
@@ -111,3 +120,11 @@ const editProfileSubmit = (event) => { // Обработчик «отправк�
 formPlace.addEventListener('submit', addCardSubmit); // слушатель на форму добавления карточки
 formProfile.addEventListener('submit', editProfileSubmit); // слушатель на форму редактирования профиля
 
+
+
+  createCard (card) {
+  const card = new Card(card, handleCardClick, '.card-template'); //создание экзампляра карточки
+  const cardItem = card.generateCard(); //создание карточки и возвращение ее наружу
+
+  cardsList.prepend(cardItem); //добавление в DOM
+};
