@@ -1,54 +1,65 @@
-class Card {
-    constructor(data, handleCardClick, cardTemplateSelector) {
-      this._title = data.name;
-      this._image = data.link;
-      this._alt = data.name;
-      this._cardTemplateSelector = cardTemplateSelector;
-      // this._handleCardClick = handleCardClick;
-    }
+export class Card {
+  constructor(data, cardTemplateSelector) {
+    this._title = data.name;
+    this._image = data.link;
+    this._alt = data.name;
+    this._cardTemplateSelector = cardTemplateSelector;
+  }
 
-    _getTemplate() { //получение содержимого template из документа
-        const cardItem = document
-        .querySelector(this._cardTemplateSelector)
-        .content
-        .querySelector('.card')
-        .cloneNode(true);
+  _getTemplate() { //получение содержимого template из документа
+    const cardItem = document
+      .querySelector(this._cardTemplateSelector)
+      .content
+      .querySelector('.card')
+      .cloneNode(true);
 
-        return cardItem;
-    }
+      return cardItem;
+  }
 
-    _deleteCard = (event) => { // функция удаления карточки
-      event.target.closest('.card').remove();
-    }
+  _deleteCard = (event) => { // функция удаления карточки
+    this._deleteButton.closest('.card').remove();
+  }
 
-    _likeCard = (event) => { //функция поставить лайк на фотографию
-      event.target.classList.toggle('card__like_active');
-    }
+  _likeCard = (event) => { //функция поставить лайк на фотографию
+    this._likeButton.classList.toggle('card__like_active');
+  }
     
-    _setEventListeners() {
-      this._card.querySelector('.card__like').addEventListener ('click', () => {
-        this._likeCard();
-      });
-
-      this._card.querySelector('.card__delete').addEventListener ('click', () => {
-        this._deleteCard();
-      });
-
-      this._card.querySelector('.card__photo').addEventListener ('click', () => {
-        this._(); // добавить функцию открытия попапа full image????
-      });
-    }
-
-    generateCard() { //подготовка карточки к публикации, наполнение данными
-      this._card = this._getTemplate();  
-      this._setEventListeners();
-
-      this._card.querySelector('.card__title').textContent = this._title;
-      this._card.querySelector('.card__photo').src = this._image;
-      this._card.querySelector('.card__photo').alt = this._title;
+  _openFullPhoto() { //что-то импортировать-экспортировать!!! функция открытия фотографии
+    openPopup(data.popupOpenPhoto);
+    cardItemPhoto.src = data.link;
+    cardItemPhoto.alt = data.name;
+    cardItemTitle.textContent = data.name; 
+  }
 
 
-      return this._card;
-    }
+  _setEventListeners() {
+    
+    // слушатели
+    this._likeButton.addEventListener ('click', () => { // на лайк
+      this._likeCard();
+    });
+
+    this._deleteButton.addEventListener ('click', () => { // на удаление
+      this._deleteCard();
+    });
+
+    this._cardPhoto.addEventListener ('click', () => { // на открытие
+      this._openFullPhoto(); 
+    });
+  }
+
+  generateCard() { //подготовка карточки к публикации, наполнение данными
+    this._card = this._getTemplate();  
+    this._likeButton = this._card.querySelector('.card__like');
+    this._deleteButton = this._card.querySelector('.card__delete');
+    this._cardPhoto = this._card.querySelector('.card__photo');
+    this._cardTitle = this._card.querySelector('.card__title');
+    this._cardTitle.textContent = this._title;
+    this._cardPhoto.src = this._image;
+    this._cardPhoto.alt = this._title;
+
+    this._setEventListeners();
+    return this._card;
+  }
 }
 
