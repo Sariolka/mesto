@@ -60,6 +60,7 @@ export class FormValidator {
             this._toggleButtonState();
         });
       });
+      this._formElement.addEventListener('submit', this._disableSubmit);
     } 
     
     resetForm = () => { //функция обновления формы при открытии попапа
