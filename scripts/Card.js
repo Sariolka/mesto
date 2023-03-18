@@ -1,9 +1,10 @@
 export class Card {
-  constructor(data, cardTemplateSelector) {
-    this._title = data.name;
-    this._image = data.link;
+  constructor(data, cardTemplateSelector, handleCardClick) {
+    this._name = data.name;
+    this._link = data.link;
     this._alt = data.name;
     this._cardTemplateSelector = cardTemplateSelector;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() { //получение содержимого template из документа
@@ -16,35 +17,27 @@ export class Card {
       return cardItem;
   }
 
-  _deleteCard = (event) => { // функция удаления карточки
+  _handleDeleteCard = (event) => { // функция удаления карточки
     this._deleteButton.closest('.card').remove();
   }
 
-  _likeCard = (event) => { //функция поставить лайк на фотографию
+  _handleLikeCard = (event) => { //функция поставить лайк на фотографию
     this._likeButton.classList.toggle('card__like_active');
   }
-    
-  _openFullPhoto() { //что-то импортировать-экспортировать!!! функция открытия фотографии
-    openPopup(data.popupOpenPhoto);
-    cardItemPhoto.src = data.link;
-    cardItemPhoto.alt = data.name;
-    cardItemTitle.textContent = data.name; 
-  }
-
 
   _setEventListeners() {
     
     // слушатели
     this._likeButton.addEventListener ('click', () => { // на лайк
-      this._likeCard();
+      this._handleLikeCard();
     });
 
     this._deleteButton.addEventListener ('click', () => { // на удаление
-      this._deleteCard();
+      this._handleDeleteCard();
     });
 
     this._cardPhoto.addEventListener ('click', () => { // на открытие
-      this._openFullPhoto(); 
+      this._handleCardClick(this._name, this._link); 
     });
   }
 
@@ -54,9 +47,9 @@ export class Card {
     this._deleteButton = this._card.querySelector('.card__delete');
     this._cardPhoto = this._card.querySelector('.card__photo');
     this._cardTitle = this._card.querySelector('.card__title');
-    this._cardTitle.textContent = this._title;
-    this._cardPhoto.src = this._image;
-    this._cardPhoto.alt = this._title;
+    this._cardTitle.textContent = this._name;
+    this._cardPhoto.src = this._link;
+    this._cardPhoto.alt = this._name;
 
     this._setEventListeners();
     return this._card;

@@ -1,3 +1,6 @@
+import {Card} from './Card.js';
+import {FormValidator} from './validate.js';
+
 const popupProfile = document.querySelector('.popup_type_profile-edit');
 const popupAddCard = document.querySelector('.popup_type_card-create');
 const buttonEdit = document.querySelector('.profile__edit-button');
@@ -44,13 +47,13 @@ popupArray.forEach((popup) => { // слушатель на каждый попа
 buttonEdit.addEventListener('click', () => { //слушатель на открытие попапа редактирования профиля
   nameInput.value = username.textContent;
   jobInput.value = job.textContent;
-  resetForm(formProfile, formValidationConfig);  
+  resetForm();  
   openPopup(popupProfile);
 });
 
 buttonAddCard.addEventListener('click', () => { //слушатель на открытие попапа добавления карточки
   formPlace.reset();
-  resetForm(formPlace, formValidationConfig);  
+  resetForm();  
   openPopup(popupAddCard);
 });
    
@@ -74,73 +77,15 @@ const editProfileSubmit = (event) => { // Обработчик «отправк�
 formPlace.addEventListener('submit', addCardSubmit); // слушатель на форму добавления карточки
 formProfile.addEventListener('submit', editProfileSubmit); // слушатель на форму редактирования профиля
 
-class Card {
-  constructor(data, cardTemplateSelector) {
-    this._title = data.name;
-    this._image = data.link;
-    this._alt = data.name;
-    this._cardTemplateSelector = cardTemplateSelector;
-  }
-
-  _getTemplate() { //получение содержимого template из документа
-    const cardItem = document
-      .querySelector(this._cardTemplateSelector)
-      .content
-      .querySelector('.card')
-      .cloneNode(true);
-
-      return cardItem;
-  }
-
-  _deleteCard = (event) => { // функция удаления карточки
-    this._deleteButton.closest('.card').remove();
-  }
-
-  _likeCard = (event) => { //функция поставить лайк на фотографию
-    this._likeButton.classList.toggle('card__like_active');
-  }
-    
-  _openFullPhoto() { //что-то импортировать-экспортировать!!! функция открытия фотографии
+  function handleCardClick (name, link) { //что-то импортировать-экспортировать!!! функция открытия фотографии
+    popupPhoto.src = link;
+    popupPhoto.alt = name;
+    popupPhotoTitle.textContent = name;
     openPopup(popupOpenPhoto);
-    popupPhoto.src = this._image;
-    popupPhoto.alt = this._title;
-    data.textContent = this._title; 
   }
-
-
-  _setEventListeners() {
-    
-    // слушатели
-    this._likeButton.addEventListener ('click', () => { // на лайк
-      this._likeCard();
-    });
-
-    this._deleteButton.addEventListener ('click', () => { // на удаление
-      this._deleteCard();
-    });
-
-    this._cardPhoto.addEventListener ('click', () => { // на открытие
-      this._openFullPhoto(); 
-    });
-  }
-
-  generateCard() { //подготовка карточки к публикации, наполнение данными
-    this._card = this._getTemplate();  
-    this._likeButton = this._card.querySelector('.card__like');
-    this._deleteButton = this._card.querySelector('.card__delete');
-    this._cardPhoto = this._card.querySelector('.card__photo');
-    this._cardTitle = this._card.querySelector('.card__title');
-    this._cardTitle.textContent = this._title;
-    this._cardPhoto.src = this._image;
-    this._cardPhoto.alt = this._title;
-
-    this._setEventListeners();
-    return this._card;
-  }
-}
 
 initialCards.forEach ((item) => {
-  const card = new Card(item, '.card-template'); //создание экзампляра карточки
+  const card = new Card(item, '.card-template', handleCardClick); //создание экзампляра карточки
   const cardItem = card.generateCard(); //создание карточки и возвращение ее наружу
 
   cardsList.prepend(cardItem);
