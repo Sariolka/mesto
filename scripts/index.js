@@ -46,14 +46,12 @@ popupArray.forEach((popup) => { // слушатель на каждый попа
 
 buttonEdit.addEventListener('click', () => { //слушатель на открытие попапа редактирования профиля
   nameInput.value = username.textContent;
-  jobInput.value = job.textContent;
-  resetForm();  
+  jobInput.value = job.textContent;  
   openPopup(popupProfile);
 });
 
 buttonAddCard.addEventListener('click', () => { //слушатель на открытие попапа добавления карточки
-  formPlace.reset();
-  resetForm();  
+  formPlace.reset();  
   openPopup(popupAddCard);
 });
    
@@ -90,3 +88,7 @@ initialCards.forEach ((item) => {
 
   cardsList.prepend(cardItem);
 });
+
+
+const popupProfileFormValidator = new FormValidator(formValidationConfig, formProfile);
+popupProfileFormValidator.enableValidation();
