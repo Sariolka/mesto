@@ -11,8 +11,9 @@ export class FormValidator {
         inputElement.classList.add(this._formValidationConfig.inputErrorClass);
         errorElement.textContent = validationMessage;
         errorElement.classList.add(this._formValidationConfig.errorClass);
+        console.log (validationMessage); // не показывает сообщение об ошибке... 
       }
-
+    
     _hideInputError = (inputElement) => { //функция скрывает сообщение об ошибке
         const errorElement =  this._formElement.querySelector(`.${inputElement.id}-error`);
         inputElement.classList.remove(this._formValidationConfig.inputErrorClass);
