@@ -47,11 +47,13 @@ export class Card {
     this._deleteButton = this._card.querySelector('.card__delete');
     this._cardPhoto = this._card.querySelector('.card__photo');
     this._cardTitle = this._card.querySelector('.card__title');
+    
     this._cardTitle.textContent = this._name;
     this._cardPhoto.src = this._link;
     this._cardPhoto.alt = this._name;
-
+    
     this._setEventListeners();
+
     return this._card;
   }
 }

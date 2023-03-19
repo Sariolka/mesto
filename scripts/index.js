@@ -48,12 +48,14 @@ buttonEdit.addEventListener('click', () => { //слушатель на откр�
   nameInput.value = username.textContent;
   jobInput.value = job.textContent;  
   popupProfileFormValidator.resetForm();
+
   openPopup(popupProfile);
 });
 
 buttonAddCard.addEventListener('click', () => { //слушатель на открытие попапа добавления карточки 
   formPlace.reset();
   popupAddCardFormValidator.resetForm();
+
   openPopup(popupAddCard);
 });
 
@@ -61,21 +63,25 @@ const editProfileSubmit = (event) => { // Обработчик «отправк�
   event.preventDefault();
   username.textContent = nameInput.value;
   job.textContent = jobInput.value;
+
   closePopup(popupProfile);
 };
 
-function handleCardClick (name, link) { //что-то импортировать-экспортировать!!! функция открытия фотографии
+function handleCardClick (name, link) {
   popupPhoto.src = link;
   popupPhoto.alt = name;
   popupPhotoTitle.textContent = name;
+
   openPopup(popupOpenPhoto);
 };
 
 const createCard = (item) => {
   const card = new Card(item, '.card-template', handleCardClick); //создание экзампляра карточки
   const cardItem = card.generateCard();
+  
   return cardItem;
 };
+
 
 
 initialCards.forEach((item) => {
@@ -83,14 +89,13 @@ initialCards.forEach((item) => {
   cardsList.prepend(cardItem);
 });
 
-const addCardSubmit = (event) => (item) => { // обработчик отправки формы добавления карточки
+const addCardSubmit = (event) => { // обработчик отправки формы добавления карточки
   event.preventDefault();
   
-  cardsList.prepend(createCard(item));
-
-  item.name =  placeInput.value;
-  item.link = linkInput.value;
-
+  cardsList.prepend(createCard({
+    name: placeInput.value,
+    link: linkInput.value
+  }));
   closePopup(popupAddCard);
 };
 
