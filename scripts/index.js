@@ -34,7 +34,7 @@ const closePopupByEsc = (evt) => { //Закрытие Popup кнопкой Escap
     const popupOpened = document.querySelector('.popup_opened');
     closePopup(popupOpened);
   };
-}
+};
 
 popupArray.forEach((popup) => { // слушатель на каждый попап на закрытие по оверлей и кнопке закрытия попапа
   popup.addEventListener('mousedown', (event) => {
@@ -47,23 +47,15 @@ popupArray.forEach((popup) => { // слушатель на каждый попа
 buttonEdit.addEventListener('click', () => { //слушатель на открытие попапа редактирования профиля
   nameInput.value = username.textContent;
   jobInput.value = job.textContent;  
+  popupProfileFormValidator.resetForm();
   openPopup(popupProfile);
 });
 
-buttonAddCard.addEventListener('click', () => { //слушатель на открытие попапа добавления карточки
-  formPlace.reset();  
+buttonAddCard.addEventListener('click', () => { //слушатель на открытие попапа добавления карточки 
+  formPlace.reset();
+  popupAddCardFormValidator.resetForm();
   openPopup(popupAddCard);
 });
-   
-const addCardSubmit = (event) => { // обработчик отправки формы добавления карточки
-  event.preventDefault();
-  cardItem = {
-    name: placeInput.value,
-    link: linkInput.value
-  };
-  renderCard(cardsList,cardItem); 
-  closePopup(popupAddCard);
-};
 
 const editProfileSubmit = (event) => { // Обработчик «отправки» формы данных профиля
   event.preventDefault();
@@ -72,23 +64,41 @@ const editProfileSubmit = (event) => { // Обработчик «отправк�
   closePopup(popupProfile);
 };
 
-formPlace.addEventListener('submit', addCardSubmit); // слушатель на форму добавления карточки
-formProfile.addEventListener('submit', editProfileSubmit); // слушатель на форму редактирования профиля
+function handleCardClick (name, link) { //что-то импортировать-экспортировать!!! функция открытия фотографии
+  popupPhoto.src = link;
+  popupPhoto.alt = name;
+  popupPhotoTitle.textContent = name;
+  openPopup(popupOpenPhoto);
+};
 
-  function handleCardClick (name, link) { //что-то импортировать-экспортировать!!! функция открытия фотографии
-    popupPhoto.src = link;
-    popupPhoto.alt = name;
-    popupPhotoTitle.textContent = name;
-    openPopup(popupOpenPhoto);
-  }
-
-initialCards.forEach ((item) => {
+const createCard = (item) => {
   const card = new Card(item, '.card-template', handleCardClick); //создание экзампляра карточки
-  const cardItem = card.generateCard(); //создание карточки и возвращение ее наружу
+  const cardItem = card.generateCard();
+  return cardItem;
+};
 
+
+initialCards.forEach((item) => {
+  const cardItem = createCard(item);
   cardsList.prepend(cardItem);
 });
+
+const addCardSubmit = (event) => (item) => { // обработчик отправки формы добавления карточки
+  event.preventDefault();
+  
+  cardsList.prepend(createCard(item));
+
+  item.name =  placeInput.value;
+  item.link = linkInput.value;
+
+  closePopup(popupAddCard);
+};
+
+formPlace.addEventListener('submit', addCardSubmit); // слушатель на форму добавления карточки
+formProfile.addEventListener('submit', editProfileSubmit); // слушатель на форму редактирования профиля
 
 
 const popupProfileFormValidator = new FormValidator(formValidationConfig, formProfile);
 popupProfileFormValidator.enableValidation();
+const popupAddCardFormValidator = new FormValidator(formValidationConfig, formPlace);
+popupAddCardFormValidator.enableValidation();
