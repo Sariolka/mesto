@@ -66,15 +66,15 @@ export class FormValidator {
   _disableSubmit = (evt) => {// функция, отменяющая отправку формы и перезагрузку страницы
     evt.preventDefault();
   };
-  
-  enableValidation() {
-    this._setEventListeners();
-  };
 
-  resetForm = () => {
+   resetForm = () => {
     this._toggleButtonState();
     this._inputList.forEach((inputElement) => {
       this._hideInputError(inputElement);
     });
+  };
+
+  enableValidation() {
+    this._setEventListeners();
   };
 }

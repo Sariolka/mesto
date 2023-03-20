@@ -75,6 +75,9 @@ function handleCardClick (name, link) {
   openPopup(popupOpenPhoto);
 };
 
+const renderCard = (item) => {
+  cardsList.prepend(item);
+}
 const createCard = (item) => {
   const card = new Card(item, '.card-template', handleCardClick); //создание экзампляра карточки
   const cardItem = card.generateCard();
@@ -82,18 +85,16 @@ const createCard = (item) => {
   return cardItem;
 };
 
-
-
 initialCards.forEach((item) => {
   const cardItem = createCard(item);
-  cardsList.prepend(cardItem);
+  renderCard(cardItem);
 });
 
 const addCardSubmit = (event) => { // обработчик отправки формы добавления карточки
   event.preventDefault();
   const cardItem = createCard({name: placeInput.value, link: linkInput.value});
-  cardsList.prepend(cardItem);
-
+  renderCard(cardItem);
+  
   closePopup(popupAddCard);
 };
 
