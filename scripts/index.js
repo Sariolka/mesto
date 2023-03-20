@@ -91,11 +91,9 @@ initialCards.forEach((item) => {
 
 const addCardSubmit = (event) => { // обработчик отправки формы добавления карточки
   event.preventDefault();
-  
-  cardsList.prepend(createCard({
-    name: placeInput.value,
-    link: linkInput.value
-  }));
+  const cardItem = createCard({name: placeInput.value, link: linkInput.value});
+  cardsList.prepend(cardItem);
+
   closePopup(popupAddCard);
 };
 

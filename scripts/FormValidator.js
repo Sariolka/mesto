@@ -22,7 +22,7 @@ export class FormValidator {
 
   _checkInputValidity = (inputElement) => { // функция, которая проверяет инпут на валидность и, 
     if(!inputElement.validity.valid) {                                 //в зависимости от результата, запускает функцию показа/скрытия ошибки
-      this._showInputError(inputElement, inputElement.validationMessage); // ????????????
+      this._showInputError(inputElement, inputElement.validationMessage);
     } else {
       this._hideInputError(inputElement);
     }
