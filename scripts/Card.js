@@ -17,17 +17,16 @@ export class Card {
       return cardItem;
   }
 
-  _handleDeleteCard = (event) => { // функция удаления карточки
+  _handleDeleteCard = () => { // функция удаления карточки
     this._deleteButton.closest('.card').remove();
   }
 
-  _handleLikeCard = (event) => { //функция поставить лайк на фотографию
+  _handleLikeCard = () => { //функция поставить лайк на фотографию
     this._likeButton.classList.toggle('card__like_active');
   }
 
-  _setEventListeners() {
+  _setEventListeners() {   // слушатели
     
-    // слушатели
     this._likeButton.addEventListener ('click', () => { // на лайк
       this._handleLikeCard();
     });
