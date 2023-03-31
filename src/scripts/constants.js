@@ -33,3 +33,8 @@ export const initialCards = [
     inputErrorClass: 'popup__input_type_error',
     errorClass: 'popup__error_visible'
   };
+
+  export const cardListSection = '.cards';
+  export const nameSelector = '.profile__name';
+  export const infoSelector = '.profile__description';
+  

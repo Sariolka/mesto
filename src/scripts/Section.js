@@ -7,7 +7,7 @@ class Section {
   }
 
 
-  addItem(item) {   //принимает карточку и вставляет ее в контейнер
+  addItem(item) {   //принимает разметку карточки и вставляет ее в контейнер
     this._conteiner.prepend(item);
   }
 
