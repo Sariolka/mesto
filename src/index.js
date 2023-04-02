@@ -1,7 +1,10 @@
 import './styles/index.css';
 import {Card} from './scripts/Card.js';
 import {FormValidator} from './scripts/FormValidator.js';
-import {initialCards, formValidationConfig, cardListSection} from './scripts/constants.js';
+import {initialCards, formValidationConfig} from './scripts/constants.js';
+import { Section } from './scripts/Section.js';
+import { PopupWithImage } from './scripts/popupWithImage.js';
+import { PopupWithForm } from './scripts/PopupWithForm.js';
 
 const popupProfile = document.querySelector('.popup_type_profile-edit');
 const popupAddCard = document.querySelector('.popup_type_card-create');
@@ -17,24 +20,56 @@ const job = document.querySelector('.profile__description');
 const buttonAddCard = document.querySelector('.profile__add-button');
 const popupArray = Array.from(document.querySelectorAll('.popup')); //создаю массив попапов
 const cardsList = document.querySelector('.cards');
-const popupOpenPhoto = document.querySelector('.popup_type_photo-full');
 const popupPhoto =popupOpenPhoto.querySelector('.popup__photo-open');
 const popupPhotoTitle = popupOpenPhoto.querySelector('.popup__photo-title');
 
+const createCard = (item) => {
+  const card = new Card({
+    item, 
+    handleCardClick: (name, link) => {
+      popupOpenPhoto.open(name, link);
+    }
+   }, '.card-template'); //создание экзампляра карточки
+  const cardItem = card.generateCard();
+  
+  return cardItem;
+};
+
+const cardList = new Section ({ 
+  items: initialCards,
+  renderer: (card) => {
+    cardList.addItem(createCard(card));
+}
+}, '.cards'
+);  
+cardList.renderItems();
+
+const popupProfileFormValidator = new FormValidator(formValidationConfig, formProfile);
+popupProfileFormValidator.enableValidation();
+const popupAddCardFormValidator = new FormValidator(formValidationConfig, formPlace);
+popupAddCardFormValidator.enableValidation();
+
+const newUserInfo = new UserInfo({
+  nameSelector: '.profile__name',
+  infoSelector: '.profile__description'
+})
+
+const popupOpenPhoto = new PopupWithImage('.popup_type_photo-full');
+popupOpenPhoto.setEventListeners();
+
+
+
 
 buttonEdit.addEventListener('click', () => { //слушатель на открытие попапа редактирования профиля
-  nameInput.value = username.textContent;
-  jobInput.value = job.textContent;  
   popupProfileFormValidator.resetForm();
-
-  openPopup(popupProfile);
+  popupProfile.open();
 });
 
 buttonAddCard.addEventListener('click', () => { //слушатель на открытие попапа добавления карточки 
-  formPlace.reset();
+  popupAddCardFormValidator.disableButton();
   popupAddCardFormValidator.resetForm();
 
-  openPopup(popupAddCard);
+  popupAddCard.open();
 });
 
 const editProfileSubmit = (event) => { // Обработчик «отправки» формы данных профиля
@@ -45,42 +80,10 @@ const editProfileSubmit = (event) => { // Обработчик «отправк�
   closePopup(popupProfile);
 };
 
-function handleCardClick (name, link) {
-  popupPhoto.src = link;
-  popupPhoto.alt = name;
-  popupPhotoTitle.textContent = name;
 
-  openPopup(popupOpenPhoto);
-};
 
-//const renderCard = (item) => {
-  //cardsList.prepend(item);
-//}
 
-//const createCard = (item) => {
-  //const card = new Card(item, '.card-template', handleCardClick); //создание экзампляра карточки
-  //const cardItem = card.generateCard();
-  
-  //return cardItem;
-//};
 
-//initialCards.forEach((item) => {
-  //const cardItem = createCard(item);
- // renderCard(cardItem);
-//});
-
-//const cardList = new Section ({
-//  items: initialCards,
-//  renderer: (item) => {
-//    const card = new Card(item, '.card-template', handleCardClick); //создание экзампляра карточки
-//    const cardItem = card.generateCard();
-
-//cardList.addItem(cardItem);
-//  }
-//}, cardListSection
-//);    ?????????????????????????????????????????????????????????????
-
-cardList.renderCards();
 
 const addCardSubmit = (event) => { // обработчик отправки формы добавления карточки
   event.preventDefault();
@@ -94,7 +97,3 @@ formPlace.addEventListener('submit', addCardSubmit); // слушатель на 
 formProfile.addEventListener('submit', editProfileSubmit); // слушатель на форму редактирования профиля
 
 
-const popupProfileFormValidator = new FormValidator(formValidationConfig, formProfile);
-popupProfileFormValidator.enableValidation();
-const popupAddCardFormValidator = new FormValidator(formValidationConfig, formPlace);
-popupAddCardFormValidator.enableValidation();

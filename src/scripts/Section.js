@@ -1,20 +1,18 @@
-class Section {
-  constructor({items, renderer}, selector) {
+export class Section {
+  constructor({items, renderer}, conteinerSelector) {
     this._items = items;
     this._renderer = renderer;
 
-    this._conteiner = document.querySelector(selector);
+    this._conteiner = document.querySelector(conteinerSelector);
   }
-
 
   addItem(item) {   //принимает разметку карточки и вставляет ее в контейнер
     this._conteiner.prepend(item);
   }
-
-
-  renderCards() { //перебирает массив данных карточек и вызывает для каждой метод addItem
+  
+  renderItems() { //перебирает initialItems и вызывает для каждой addItem
     this._items.forEach((item) => {
       this._renderer(item);
     });
-  }    
+  }  
 }
