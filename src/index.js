@@ -1,4 +1,4 @@
-import './styles/index.css';
+
 import {Card} from './scripts/Card.js';
 import {FormValidator} from './scripts/FormValidator.js';
 import {initialCards, formValidationConfig} from './scripts/constants.js';
@@ -20,12 +20,13 @@ const job = document.querySelector('.profile__description');
 const buttonAddCard = document.querySelector('.profile__add-button');
 const popupArray = Array.from(document.querySelectorAll('.popup')); //создаю массив попапов
 const cardsList = document.querySelector('.cards');
-const popupPhoto =popupOpenPhoto.querySelector('.popup__photo-open');
-const popupPhotoTitle = popupOpenPhoto.querySelector('.popup__photo-title');
 
-const createCard = (item) => {
+const popupOpenPhoto = new PopupWithImage('.popup_type_photo-full');
+popupOpenPhoto.setEventListeners();
+
+const createCard = (data) => {
   const card = new Card({
-    item, 
+    data, 
     handleCardClick: (name, link) => {
       popupOpenPhoto.open(name, link);
     }
@@ -54,8 +55,7 @@ const newUserInfo = new UserInfo({
   infoSelector: '.profile__description'
 })
 
-const popupOpenPhoto = new PopupWithImage('.popup_type_photo-full');
-popupOpenPhoto.setEventListeners();
+
 
 
 
