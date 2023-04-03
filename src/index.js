@@ -6,8 +6,6 @@ import { Section } from './scripts/Section.js';
 import { PopupWithImage } from './scripts/popupWithImage.js';
 import { PopupWithForm } from './scripts/PopupWithForm.js';
 
-const popupProfile = document.querySelector('.popup_type_profile-edit');
-const popupAddCard = document.querySelector('.popup_type_card-create');
 const buttonEdit = document.querySelector('.profile__edit-button');
 const formPlace = document.querySelector('.popup__form-place');
 const formProfile = document.querySelector('.popup__form-profile');
@@ -19,10 +17,29 @@ const username = document.querySelector('.profile__name');
 const job = document.querySelector('.profile__description');
 const buttonAddCard = document.querySelector('.profile__add-button');
 const popupArray = Array.from(document.querySelectorAll('.popup')); //создаю массив попапов
-const cardsList = document.querySelector('.cards');
+
+const newUserInfo = new UserInfo({
+  nameSelector: '.profile__name',
+  infoSelector: '.profile__description'
+})
 
 const popupOpenPhoto = new PopupWithImage('.popup_type_photo-full');
 popupOpenPhoto.setEventListeners();
+
+const popupProfile = new PopupWithForm({
+  popupSelector: '.popup_type_profile-edit',
+  handleFormSubmit: (formData) => {
+    newUserInfo.setUserInfo(formData);
+  }
+});
+popupProfile.setEventListeners();
+
+const popupAddCard = new PopupWithForm({
+  popupSelector: '.popup_type_card-create',
+  handleFormSubmit: 
+  );
+popupAddCard.setEventListeners();
+
 
 const createCard = (data) => {
   const card = new Card({
@@ -50,14 +67,6 @@ popupProfileFormValidator.enableValidation();
 const popupAddCardFormValidator = new FormValidator(formValidationConfig, formPlace);
 popupAddCardFormValidator.enableValidation();
 
-const newUserInfo = new UserInfo({
-  nameSelector: '.profile__name',
-  infoSelector: '.profile__description'
-})
-
-
-
-
 
 
 buttonEdit.addEventListener('click', () => { //слушатель на открытие попапа редактирования профиля
@@ -79,11 +88,6 @@ const editProfileSubmit = (event) => { // Обработчик «отправк�
 
   closePopup(popupProfile);
 };
-
-
-
-
-
 
 const addCardSubmit = (event) => { // обработчик отправки формы добавления карточки
   event.preventDefault();
