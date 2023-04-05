@@ -47,6 +47,7 @@ const createCard = (data) => { //создание экземпляра карт�
   return cardItem;
 };
 
+
 const cardList = new Section ({  // создание 6 карточек при загрузке страницы
   items: initialCards,
   renderer: (card) => {
@@ -88,12 +89,12 @@ popupAddCard.setEventListeners();
 buttonEdit.addEventListener('click', openProfilePopup); //слушатель на открытие попапа редактирования профиля);
 
 function openProfilePopup() {
+  popupProfileFormValidator.enableButton();
   const showUserInfo = userInfo.getUserInfo();
   nameInput.value = showUserInfo.name;
-  jobInput.value = showUserInfo.info;
+  jobInput.value = showUserInfo.description;
   popupProfile.open();
 }
-
 
 
 buttonAddCard.addEventListener('click', () => { //слушатель на открытие попапа добавления карточки 

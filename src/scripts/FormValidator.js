@@ -39,7 +39,7 @@ export class FormValidator {
     this._buttonElement.setAttribute('disabled', true);
   }
 
-  _enableButton = () => { //функция, разблокирующая кнопку сабмит
+  enableButton = () => { //функция, разблокирующая кнопку сабмит
     this._buttonElement.classList.remove(this._formValidationConfig.inactiveButtonClass);
     this._buttonElement.removeAttribute('disabled');
   }
@@ -48,7 +48,7 @@ export class FormValidator {
     if (this._hasInvalidInput()) {
       this.disableButton();
     } else {
-      this._enableButton();
+      this.enableButton();
     }
   }
   
