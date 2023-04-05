@@ -17,8 +17,8 @@ const nameInput = formProfile.querySelector('.popup__input_form_name');
 const jobInput = formProfile.querySelector('.popup__input_form_description');
 const placeInput = formPlace.querySelector('.popup__input_form_place');
 const linkInput = formPlace.querySelector('.popup__input_form_link');
-const username = document.querySelector('.profile__name');
-const job = document.querySelector('.profile__description');
+//const username = document.querySelector('.profile__name');
+//const job = document.querySelector('.profile__description');
 const popupArray = Array.from(document.querySelectorAll('.popup')); //создаю массив попапов 
 
 
@@ -60,8 +60,8 @@ cardList.renderItems();
 
 const popupProfile = new PopupWithForm({ //попап редактирования профиля
   popupSelector:'.popup_type_profile-edit',
-  handleFormSubmit: (user) => { //добавление новых данных пользователя на страницу при сабмите формы
-    userInfo.setUserInfo(user);
+  handleFormSubmit: (element) => { //добавление новых данных пользователя на страницу при сабмите формы
+    userInfo.setUserInfo(element);
     popupProfile.close();
   }
 });
@@ -85,14 +85,14 @@ popupAddCard.setEventListeners();
 
 
 
-buttonEdit.addEventListener('click', () => { //слушатель на открытие попапа редактирования профиля
-  popupProfile.open();
-  popupProfileFormValidator.resetForm();
+buttonEdit.addEventListener('click', openProfilePopup); //слушатель на открытие попапа редактирования профиля);
+
+function openProfilePopup() {
   const showUserInfo = userInfo.getUserInfo();
   nameInput.value = showUserInfo.name;
   jobInput.value = showUserInfo.info;
-});
-
+  popupProfile.open();
+}
 
 
 
