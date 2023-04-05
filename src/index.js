@@ -61,7 +61,7 @@ cardList.renderItems();
 const popupProfile = new PopupWithForm({ //попап редактирования профиля
   popupSelector:'.popup_type_profile-edit',
   handleFormSubmit: (user) => { //добавление новых данных пользователя на страницу при сабмите формы
-    userInfo.setUserInfo({user});
+    userInfo.setUserInfo(user);
     popupProfile.close();
   }
 });
@@ -82,14 +82,15 @@ const popupAddCard = new PopupWithForm({ // создание попапа доб
 });
 popupAddCard.setEventListeners();
 
-console.log(popupAddCard);
 
 
 
 buttonEdit.addEventListener('click', () => { //слушатель на открытие попапа редактирования профиля
   popupProfile.open();
   popupProfileFormValidator.resetForm();
-  popupProfile.showInputValues(userInfo.getUserInfo());
+  const showUserInfo = userInfo.getUserInfo();
+  nameInput.value = showUserInfo.name;
+  jobInput.value = showUserInfo.info;
 });
 
 
