@@ -99,16 +99,3 @@ buttonAddCard.addEventListener('click', () => { //слушатель на отк
 
   popupAddCard.open();
 });
-
-/*const popupAddCard = new PopupWithForm({ // создание попапа добавления карточки
-  popupSelector:'.popup_type_card-create',
-  handleFormSubmit: ({place, link}) => {  // добавление карточки на страницу при сабмите формы
-    cardList.addItem(createCard({
-      name: place,
-      link: link,
-      alt: place
-    }));
-    popupAddCard.close();
-}
-});
-popupAddCard.setEventListeners();*/
