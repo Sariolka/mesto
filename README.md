@@ -22,6 +22,7 @@
 * Pop-up
 * Формы и валидация форм
 * ООП
+* Webpack
 
 ## Ссылка на проект  
 https://sariolka.github.io/mesto/
