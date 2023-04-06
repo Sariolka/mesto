@@ -17,6 +17,14 @@ export class PopupWithForm extends Popup {
 
     return this._formValues; // возвращаем объект значений
   }
+  
+
+  setInputValues(element) {
+    this._inputList.forEach((input) => {
+    // тут вставляем в `value` инпута данные из объекта по атрибуту `name` этого инпута
+    input.value = element[input.name];
+    });
+  }
 
   setEventListeners() {
     super.setEventListeners();

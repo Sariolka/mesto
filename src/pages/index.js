@@ -85,10 +85,7 @@ buttonEdit.addEventListener('click', openProfilePopup); //слушатель н�
 function openProfilePopup() {
   popupProfileFormValidator.resetForm();
   popupProfileFormValidator.enableButton();
-  const showUserInfo = userInfo.getUserInfo();
-  nameInput.value = showUserInfo.name;
-  jobInput.value = showUserInfo.description;
-
+  popupProfile.setInputValues(userInfo.getUserInfo());
   popupProfile.open();
 }
 
