@@ -93,6 +93,5 @@ function openProfilePopup() {
 buttonAddCard.addEventListener('click', () => { //слушатель на открытие попапа добавления карточки 
   popupAddCardFormValidator.disableButton();
   popupAddCardFormValidator.resetForm();
-
   popupAddCard.open();
 });
