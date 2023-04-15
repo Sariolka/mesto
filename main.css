@@ -37,6 +37,8 @@
 .card__photo{aspect-ratio:1/1;border-radius:10px 10px 0 0;cursor:pointer;-o-object-fit:cover;object-fit:cover;-o-object-position:center;object-position:center;position:relative;text-align:center;vertical-align:bottom;width:282px;z-index:0}.card__photo:before{background-color:rgba(0,0,0,.9);border-radius:10px 10px 0 0;height:282px;top:0;width:282px}.card__photo:after,.card__photo:before{color:#fff;display:block;position:absolute}.card__photo:after{content:"Извините, картинка не загрузилась";font-size:12px;left:40px;top:50%}
 .card__like{background-color:transparent;background-image:url(f9cbbc232f4ed178be38.svg);background-position:50%;background-repeat:no-repeat;background-size:cover;border:none;cursor:pointer;height:19px;margin-right:4px;margin-top:4px;transition:opacity .5s ease;width:22px}.card__like:hover{opacity:.5}
 .card__like_active{background-image:url(d750ae7834bd9bfe5181.svg)}
+.card__like-container{display:flex;flex-direction:column}
+.card__like-count{color:#000;font-family:Inter,Arial,sans-serif;font-size:13px;font-style:normal;font-weight:400;line-height:16px;text-align:center}
 .card__footer{display:flex;justify-content:space-between;max-width:246px;padding:25px 15px 25px 21px}
 .footer{margin:auto;max-width:880px;padding:67px 0 60px}@media (max-width:879px){.footer{max-width:581px}}@media (max-width:580px){.footer{max-width:282px;padding-bottom:36px;padding-top:48px}}
 .footer__copyright{color:#545454;font-family:Inter,Arial,sans-serif;font-size:18px;font-style:normal;font-weight:400;line-height:22px;margin:0}@media (max-width:580px){.footer__copyright{font-size:14px;line-height:17px}}
