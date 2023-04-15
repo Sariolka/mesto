@@ -10,12 +10,12 @@ export class PopupWithForm extends Popup {
 
   _getInputValues() {
       // достаём все элементы полей
-    this._formValues = {};  // создаём пустой объект
+    const formValues = {};  // создаём пустой объект
     this._inputList.forEach((input) => { // добавляем в этот объект значения всех полей
-      this._formValues[input.name] = input.value;
+      formValues[input.name] = input.value;
     });
 
-    return this._formValues; // возвращаем объект значений
+    return formValues; // возвращаем объект значений
   }
 
   setInputValues(data) {

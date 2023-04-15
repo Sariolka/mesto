@@ -6,6 +6,10 @@ import { Section } from '../scripts/components/Section.js';
 import { PopupWithImage } from '../scripts/components/PopupWithImage.js';
 import { PopupWithForm } from '../scripts/components/PopupWithForm.js';
 import { UserInfo } from '../scripts/components/UserInfo.js';
+import { api } from '../scripts/components/Api.js';
+
+
+
 
 
 
@@ -21,6 +25,33 @@ const jobInput = formProfile.querySelector('.popup__input_form_description');
 //const job = document.querySelector('.profile__description');
 //const popupArray = Array.from(document.querySelectorAll('.popup')); //создаю массив попапов 
 
+const userInfo = new UserInfo({  //данные пользователя
+  nameSelector: '.profile__name',
+  infoSelector: '.profile__description'
+}) 
+
+
+api.getInitialCards()
+  .then((res) => {
+    cardList.renderItems(res);
+    console.log(res);
+  })
+  .catch((err) => {
+    console.log(`Ошибка: ${err}`); // выведем ошибку в консоль
+  });
+
+
+api.getUserInfo()  //загрузить информацию о пользователе
+  .then((res) => {
+    userInfo.setUserInfo(res);
+    console.log(res);
+  })
+  .catch((err) => {
+    console.log(`Ошибка: ${err}`);
+  })
+
+
+
 
 const popupOpenPhoto = new PopupWithImage('.popup_type_photo-full'); //попап открытия фотографии
 popupOpenPhoto.setEventListeners();
@@ -30,11 +61,6 @@ popupProfileFormValidator.enableValidation();
 const popupAddCardFormValidator = new FormValidator(formValidationConfig, formPlace);
 popupAddCardFormValidator.enableValidation();
 
-
-const userInfo = new UserInfo({  //данные пользователя
-  nameSelector: '.profile__name',
-  infoSelector: '.profile__description'
-})
 
 const createCard = (data) => { //создание экземпляра карточки
   const card = new Card({
@@ -54,7 +80,7 @@ const cardList = new Section ({  // создание 6 карточек при �
     cardList.addItem(createCard(card));
   }
 }, '.cards');  
-cardList.renderItems();
+//cardList.renderItems();
 
 
 const popupProfile = new PopupWithForm({ //попап редактирования профиля
@@ -80,14 +106,22 @@ const popupAddCard = new PopupWithForm({ // создание попапа доб
 popupAddCard.setEventListeners();
 
 
-buttonEdit.addEventListener('click', openProfilePopup); //слушатель на открытие попапа редактирования профиля);
+buttonEdit.addEventListener('click', () => {
+  
+  popupProfileFormValidator.enableButton();
+  const userData = userInfo.getUserInfo();
+  nameInput.value = userData.name;
+  jobInput.value = userData.about;
+  
+  popupProfile.open();
+}); //слушатель на открытие попапа редактирования профиля);
 
-function openProfilePopup() {
+/*function openProfilePopup() {
   popupProfileFormValidator.resetForm();
   popupProfileFormValidator.enableButton();
-  popupProfile.setInputValues(userInfo.getUserInfo());
+  popupProfile.setInputValues(userInfo.setUserInfo());
   popupProfile.open();
-}
+}*/
 
 
 buttonAddCard.addEventListener('click', () => { //слушатель на открытие попапа добавления карточки 

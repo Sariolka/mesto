@@ -12,7 +12,7 @@ export class Section {
   
   renderItems() { //перебирает initialItems и вызывает для каждой addItem
     this._items.forEach((item) => {
-      this._renderer(item);
+      this._renderer(item);        //конструкция [].concat(data).forEach(() => {})
     });
   }  
 }
