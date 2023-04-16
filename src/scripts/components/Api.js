@@ -5,9 +5,11 @@ class Api {
   }
   
 
-  _getResponse(res) {
+  getResponse(res) {
     if (res.ok) {
+      console.log(res);
       return res.json();
+      
     }
     return Promise.reject(`Ошибка: ${res.status}`)
   }
@@ -19,7 +21,7 @@ class Api {
       method: "GET",
       headers: this._headers
     })
-    .then(this._getResponse);
+    .then(this.getResponse);
   } 
 
   getUserInfo() {                                 // получить информацию о пользователе
@@ -27,7 +29,7 @@ class Api {
       method: "GET",
       headers: this._headers
     })
-    .then(this._getResponse); 
+    .then(this.getResponse); 
   }
   
   editUserProfile(data) {                       //редактировать информацию о пользователе
@@ -39,37 +41,51 @@ class Api {
         about: data.about
       })
     })
-    .then(this._getResponse);
+    .then(this.getResponse);
   }
 
 
-  addNewCard(card) {   //добавить новую карточку
+  addNewCard(item) {   //добавить новую карточку
     return fetch(`${this._address}/cards`, {
       method: "POST",
       headers: this._headers, 
       body: JSON.stringify({
-        place: card.place,
-        link: card.link
+        name: item.place,
+        link: item.link
       })
     })
-    .then(this._getResponse);
+    .then(this.getResponse);
   }
 
 
   deleteCard() {  //удалить карточку
-
+    
   }
 
-  getLikeCard() {  //поставить лайк
-
+  getLikeCard(cardId) {  //поставить лайк
+    return fetch(`${this._address}/cards/likes/${cardId}`, {
+      method: "PUT",
+      headers: this._headers
+    })
+    .then(this.getResponse);
   }
 
-  deleteLikeCard() {  //удалить лайк
-
+  deleteLikeCard(cardId) {  //удалить лайк
+    return fetch(`${this._address}/cards/likes/${cardId}`, {
+      method: "DELETE",
+      headers: this._headers
+    })
+    .then(this.getResponse);
   }
  
-  editUserAvatar() {  //изменить аватар
 
+
+  editUserAvatar() {  //изменить аватар
+    return fetch(`${this._address}/users/me/avatar`, {
+      method: "DELETE",
+      headers: this._headers
+    })
+    .then(this.getResponse);
   }
 }
 

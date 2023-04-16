@@ -30,21 +30,38 @@ const userInfo = new UserInfo({  //данные пользователя
   infoSelector: '.profile__description'
 }) 
 
+const createCard = (item) => { //создание экземпляра карточки
+  const card = new Card({
+    item, 
+    handleCardClick: (place, link) => {
+      popupOpenPhoto.open(place, link);
+    }
+  }, '.card-template'); 
+  const cardItem = card.generateCard();
+  
+  return cardItem;
+};
+
+const cardList = new Section ({  // создание 6 карточек при загрузке страницы
+  renderer: (item) => {
+    cardList.addItem(createCard(item));
+  }
+}, '.cards');  
+
 
 api.getInitialCards()
-  .then((res) => {
-    cardList.renderItems(res);
-    console.log(res);
+  .then((items) => {
+    console.log('items ', items)
+    cardList.renderItems(items);
   })
   .catch((err) => {
-    console.log(`Ошибка: ${err}`); // выведем ошибку в консоль
+    console.log(err); // выведем ошибку в консоль
   });
 
 
 api.getUserInfo()  //загрузить информацию о пользователе
   .then((res) => {
     userInfo.setUserInfo(res);
-    console.log(res);
   })
   .catch((err) => {
     console.log(`Ошибка: ${err}`);
@@ -62,47 +79,34 @@ const popupAddCardFormValidator = new FormValidator(formValidationConfig, formPl
 popupAddCardFormValidator.enableValidation();
 
 
-const createCard = (data) => { //создание экземпляра карточки
-  const card = new Card({
-    data, 
-    handleCardClick: (place, link) => {
-      popupOpenPhoto.open(place, link);
-    }
-  }, '.card-template'); 
-  const cardItem = card.generateCard();
-  
-  return cardItem;
-};
-
-const cardList = new Section ({  // создание 6 карточек при загрузке страницы
-  items: initialCards,
-  renderer: (card) => {
-    cardList.addItem(createCard(card));
-  }
-}, '.cards');  
-//cardList.renderItems();
-
 
 const popupProfile = new PopupWithForm({ //попап редактирования профиля
   popupSelector:'.popup_type_profile-edit',
-  handleFormSubmit: (element) => { //добавление новых данных пользователя на страницу при сабмите формы
-    userInfo.setUserInfo(element);
-    
+  handleFormSubmit: (data) => { //добавление новых данных пользователя на страницу при сабмите формы
+    api.editUserProfile(data)
+  .then((data) => {
+    userInfo.setUserInfo(data);
+  })
+  .catch((err) => {
+    console.log(`Ошибка: ${err}`);
+  })
   }
 });
 popupProfile.setEventListeners();
 
 const popupAddCard = new PopupWithForm({ // создание попапа добавления карточки
   popupSelector:'.popup_type_card-create',
-  handleFormSubmit: (element) => {  // добавление карточки на страницу при сабмите формы
-    cardList.addItem(createCard({
-      name: element.place,
-      link: element.link,
-      alt: element.place
-    }));
-    popupAddCard.close();
-  }
-});
+  handleFormSubmit: (item) => {  // добавление карточки на страницу при сабмите формы
+    api.addNewCard(item) 
+      .then((item)=> {
+        cardList.addItem(createCard(item));
+        popupAddCard.close();
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      })
+    }
+  });
 popupAddCard.setEventListeners();
 
 
@@ -116,12 +120,6 @@ buttonEdit.addEventListener('click', () => {
   popupProfile.open();
 }); //слушатель на открытие попапа редактирования профиля);
 
-/*function openProfilePopup() {
-  popupProfileFormValidator.resetForm();
-  popupProfileFormValidator.enableButton();
-  popupProfile.setInputValues(userInfo.setUserInfo());
-  popupProfile.open();
-}*/
 
 
 buttonAddCard.addEventListener('click', () => { //слушатель на открытие попапа добавления карточки 

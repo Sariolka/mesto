@@ -8,7 +8,6 @@
   background-color: transparent;
   border: none;
   transition: opacity .5s ease;
-  margin-top: 4px;
   margin-right: 4px;
   cursor: pointer;
 }
