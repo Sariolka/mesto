@@ -11,8 +11,14 @@ export class UserInfo {
     }
   }
   
-  setUserInfo(element) { // принимает новые данные пользователя и добавляет их на страницу
-    this._userName.textContent = element.name;
-    this._userInfo.textContent = element.about;
+  setUserInfo({name, about, _id}) { // принимает новые данные пользователя и добавляет их на страницу
+    this._userName.textContent = name;
+    this._userInfo.textContent = about;
+    this._userId = _id;
+    console.log(this._userId);
+  }
+
+  getUserId() {
+    return this._userId;
   }
 }

@@ -8,7 +8,7 @@ export class Section {
 
 
   addItem(item) {   //принимает разметку карточки и вставляет ее в контейнер
-    this._container.append(item);
+    this._container.prepend(item);
   }
   
   renderItems(items) { //перебирает initialItems и вызывает для каждой addItem

@@ -58,20 +58,25 @@ class Api {
   }
 
 
-  deleteCard() {  //удалить карточку
-    
+  deleteCard(cardId) {  //удалить карточку
+    return fetch(`${this._address}/cards/${cardId}`, {
+      method: "DELETE",
+      headers: this._headers
+    })
+    .then(this.getResponse); 
   }
+  
 
-  getLikeCard(cardId) {  //поставить лайк
-    return fetch(`${this._address}/cards/likes/${cardId}`, {
+  getLikeCard(item) {  //поставить лайк
+    return fetch(`${this._address}/cards/${item._id}/likes`, {
       method: "PUT",
       headers: this._headers
     })
     .then(this.getResponse);
   }
 
-  deleteLikeCard(cardId) {  //удалить лайк
-    return fetch(`${this._address}/cards/likes/${cardId}`, {
+  deleteLikeCard(item) {  //удалить лайк
+    return fetch(`${this._address}/cards/${item._id}/likes`, {
       method: "DELETE",
       headers: this._headers
     })

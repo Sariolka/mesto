@@ -1,12 +1,13 @@
 import './index.css'
 import {Card} from '../scripts/components/Card.js';
 import {FormValidator} from '../scripts/components/FormValidator.js';
-import {initialCards, formValidationConfig} from '../scripts/utils/constants.js';
+import { formValidationConfig } from '../scripts/utils/constants.js';
 import { Section } from '../scripts/components/Section.js';
 import { PopupWithImage } from '../scripts/components/PopupWithImage.js';
 import { PopupWithForm } from '../scripts/components/PopupWithForm.js';
 import { UserInfo } from '../scripts/components/UserInfo.js';
 import { api } from '../scripts/components/Api.js';
+import { PopupWithSubmit } from '../scripts/components/PopupWithSubmit.js';
 
 
 
@@ -19,8 +20,8 @@ const formPlace = document.querySelector('.popup__form-place');
 const formProfile = document.querySelector('.popup__form-profile');
 const nameInput = formProfile.querySelector('.popup__input_form_name');
 const jobInput = formProfile.querySelector('.popup__input_form_description');
-//const placeInput = formPlace.querySelector('.popup__input_form_place');
-//const linkInput = formPlace.querySelector('.popup__input_form_link');
+const placeInput = formPlace.querySelector('.popup__input_form_place');
+const linkInput = formPlace.querySelector('.popup__input_form_link');
 //const username = document.querySelector('.profile__name');
 //const job = document.querySelector('.profile__description');
 //const popupArray = Array.from(document.querySelectorAll('.popup')); //создаю массив попапов 
@@ -30,12 +31,46 @@ const userInfo = new UserInfo({  //данные пользователя
   infoSelector: '.profile__description'
 }) 
 
+
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([data, items]) => {
+    userInfo.setUserInfo(data);
+    cardList.renderItems(items);
+  })
+  .catch((err) => {
+    console.log(err); // выведем ошибку в консоль
+  });
+
+  function getUserId() {
+    console.log(userInfo.getUserId());
+    return userInfo.getUserId();
+  }
+
+const popupCardDelete = new PopupWithSubmit({   //создание попапа подтверждения удаления карточки
+  popupSelector:'.popup_type_card-delete',
+  handleSubmitDelete: ({item}) => {
+    api.deleteCard(item._id)
+    .then(() => {     //???????????????
+      item.handleDeleteCard();
+      popupCardDelete.close();
+    })
+    .catch((err) => {
+      console.log(`Ошибка: ${err}`);
+  })
+}
+});
+popupCardDelete.setEventListeners();
+
 const createCard = (item) => { //создание экземпляра карточки
   const card = new Card({
     item, 
     handleCardClick: (place, link) => {
       popupOpenPhoto.open(place, link);
-    }
+    },
+    handleClickIconDelete: (item) => {
+      popupCardDelete.open(item);
+    }, 
+    getUserId
   }, '.card-template'); 
   const cardItem = card.generateCard();
   
@@ -49,7 +84,7 @@ const cardList = new Section ({  // создание 6 карточек при �
 }, '.cards');  
 
 
-api.getInitialCards()
+/*api.getInitialCards()
   .then((items) => {
     console.log('items ', items)
     cardList.renderItems(items);
@@ -62,12 +97,12 @@ api.getInitialCards()
 api.getUserInfo()  //загрузить информацию о пользователе
   .then((res) => {
     userInfo.setUserInfo(res);
+    console.log('res', res);
   })
   .catch((err) => {
     console.log(`Ошибка: ${err}`);
   })
-
-
+*/
 
 
 const popupOpenPhoto = new PopupWithImage('.popup_type_photo-full'); //попап открытия фотографии
@@ -108,6 +143,10 @@ const popupAddCard = new PopupWithForm({ // создание попапа доб
     }
   });
 popupAddCard.setEventListeners();
+
+
+
+
 
 
 buttonEdit.addEventListener('click', () => {

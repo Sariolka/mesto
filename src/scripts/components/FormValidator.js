@@ -6,6 +6,23 @@ export class FormValidator {
     this._buttonElement = this._formElement.querySelector(this._formValidationConfig.submitButtonSelector);
   }
 
+  
+  _setEventListeners = () => { //слушатель на инпуты для запуска функции проверки валидности
+    this._toggleButtonState();
+    this._inputList.forEach((inputElement) => {
+      inputElement.addEventListener('input', () => {
+        this._checkInputValidity(inputElement);
+        this._toggleButtonState();
+      });
+    });
+    this._formElement.addEventListener('submit', this._disableSubmit);
+  }
+  
+  _disableSubmit = (evt) => {// функция, отменяющая отправку формы и перезагрузку страницы
+    evt.preventDefault();
+  }
+
+
   _showInputError = (inputElement, validationMessage) => {// функция показывает сообщение об ошибке
     const errorElement =  this._formElement.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.add(this._formValidationConfig.inputErrorClass);
@@ -52,20 +69,6 @@ export class FormValidator {
     }
   }
   
-  _setEventListeners = () => { //слушатель на инпуты для запуска функции проверки валидности
-    this._toggleButtonState();
-    this._inputList.forEach((inputElement) => {
-      inputElement.addEventListener('input', () => {
-        this._checkInputValidity(inputElement);
-        this._toggleButtonState();
-      });
-    });
-    this._formElement.addEventListener('submit', this._disableSubmit);
-  }
-  
-  _disableSubmit = (evt) => {// функция, отменяющая отправку формы и перезагрузку страницы
-    evt.preventDefault();
-  }
 
   resetForm = () => {
     this._toggleButtonState();
