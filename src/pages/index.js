@@ -46,30 +46,35 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     return userInfo.getUserId();
   }
 
+  function handleClickIconDelete(item) {
+    popupCardDelete.open(item);
+  }
+
 
 function createCard(item) { //создание экземпляра карточки
   const card = new Card({
-    item: card, 
+    item, 
     handleCardClick: (place, link) => {
       popupOpenPhoto.open(place, link);
     },
-    handleClickIconDelete: (card) => {
-      popupCardDelete.open(card);
-      console.log(card._id);
-    }, 
-    getUserId
+    handleClickIconDelete//: (item) => {
+      //popupCardDelete.open(item);
+     // popupCardDelete.getCardId(item);
+     // console.log(item._id);
+   // }, 
+    ,getUserId
   }, '.card-template'); 
   const cardItem = card.generateCard();
   
   return cardItem;
 };
 
-function submit(card) { //???????????????
-  console.log(card);
-  api.deleteCard(card._id)
+function submit(item) { //???????????????
+  console.log(item);
+  api.deleteCard(item._id)
   .then((res) => {
     console.log(res);
-    card.handleDeleteCard();
+    item.handleDeleteCard();
     popupCardDelete.close();
    })
    .catch((err) => {

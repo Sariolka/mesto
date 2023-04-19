@@ -5,20 +5,25 @@ export class PopupWithSubmit extends Popup {
     super(popupSelector);
     this._popupForm = this._popup.querySelector('.popup__form');
     this._submit = submit;
+    this._handleSubmit =  this._handleSubmit.bind(this);
   }
 
 
   open(item) {
-    this._item = item;
+    this.item = item;
     super.open();
-    console.log(this._item._id);
+    console.log(this.item._id);
   }
 
   _handleSubmit(evt) {
     evt.preventDefault();
-    this._submit(this._item);
+    this._submit(this.item);
   }
 
+ // getCardId (item) {
+   // this._item = item;
+   // return this._item._id;
+ // }
 
   setEventListeners() {
     super.setEventListeners();
