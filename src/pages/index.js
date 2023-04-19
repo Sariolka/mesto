@@ -10,10 +10,6 @@ import { api } from '../scripts/components/Api.js';
 import { PopupWithSubmit } from '../scripts/components/PopupWithSubmit.js';
 
 
-
-
-
-
 const buttonAddCard = document.querySelector('.profile__add-button');
 const buttonEdit = document.querySelector('.profile__edit-button');
 const formPlace = document.querySelector('.popup__form-place');
@@ -32,70 +28,57 @@ const userInfo = new UserInfo({  //данные пользователя
   infoSelector: '.profile__description'
 }) 
 
+let userId = "";
 
 Promise.all([api.getUserInfo(), api.getInitialCards()])
-  .then(([data, items]) => {
-    userInfo.setUserInfo(data);
-    cardList.renderItems(items);
-  })
-  .catch((err) => {
-    console.log(err); // выведем ошибку в консоль
-  });
-
-  function getUserId() {
-    return userInfo.getUserId();
-  }
-
-  function handleClickIconDelete(item) {
-    popupCardDelete.open(item);
-  }
+.then(([data, items]) => {
+userInfo.setUserInfo(data);
+userId = data._id;
+cardList.renderItems(items);
+console.log('items', items);
+})
+.catch((err) => {
+console.log(err); // выведем ошибку в консоль
+});
 
 
-function createCard(item) { //создание экземпляра карточки
+const createCard = (item) => { //создание экземпляра карточки
   const card = new Card({
-    item, 
+    item,
+    userId,
     handleCardClick: (place, link) => {
       popupOpenPhoto.open(place, link);
     },
-    handleClickIconDelete//: (item) => {
-      //popupCardDelete.open(item);
-     // popupCardDelete.getCardId(item);
-     // console.log(item._id);
-   // }, 
-    ,getUserId
+    handleClickIconDelete: () => {
+      popupCardDelete.open();
+      popupCardDelete.handleSubmit(() => {
+        api.deleteCard(item)
+          .then(() => {
+            popupCardDelete.close();
+            card.handleDeleteCard();
+          })
+          .catch((err) => {
+             console.log(err);
+          })
+    })},
+    handleLike: () => {
+      api.getLikeCard(card)
+      .then((res) => {
+        console.log(res);
+        card.handleLikeCard(item);
+    })
+    .catch((err) => {
+      console.log(err);
+   })}
   }, '.card-template'); 
   const cardItem = card.generateCard();
   
   return cardItem;
 };
 
-function submit(item) { //???????????????
-  console.log(item);
-  api.deleteCard(item._id)
-  .then((res) => {
-    console.log(res);
-    item.handleDeleteCard();
-    popupCardDelete.close();
-   })
-   .catch((err) => {
-    console.log(err);
-  })
-  }
-
 
 const popupCardDelete = new PopupWithSubmit({   //создание попапа подтверждения удаления карточки
-  popupSelector:'.popup_type_card-delete',
-  submit//: (cardId) => {
-    //api.deleteCard(cardId)
-    //.then((res) => {     //???????????????
-    //  res.handleDeleteCard();
-     // popupCardDelete.close();
-   // })
-    //.catch((err) => {
-    //  console.log(`Ошибка: ${err}`);
- // })
-//}
-});
+  popupSelector:'.popup_type_card-delete'});
 popupCardDelete.setEventListeners();
 
 
@@ -104,27 +87,6 @@ const cardList = new Section ({  // создание 6 карточек при �
     cardList.addItem(createCard(item));
   }
 }, '.cards');  
-
-
-/*api.getInitialCards()
-  .then((items) => {
-    console.log('items ', items)
-    cardList.renderItems(items);
-  })
-  .catch((err) => {
-    console.log(err); // выведем ошибку в консоль
-  });
-
-
-api.getUserInfo()  //загрузить информацию о пользователе
-  .then((res) => {
-    userInfo.setUserInfo(res);
-    console.log('res', res);
-  })
-  .catch((err) => {
-    console.log(`Ошибка: ${err}`);
-  })
-*/
 
 
 const popupOpenPhoto = new PopupWithImage('.popup_type_photo-full'); //попап открытия фотографии
@@ -167,10 +129,6 @@ const popupAddCard = new PopupWithForm({ // создание попапа доб
 popupAddCard.setEventListeners();
 
 
-
-
-
-
 buttonEdit.addEventListener('click', () => {
   
   popupProfileFormValidator.enableButton();
@@ -180,7 +138,6 @@ buttonEdit.addEventListener('click', () => {
   
   popupProfile.open();
 }); //слушатель на открытие попапа редактирования профиля);
-
 
 
 buttonAddCard.addEventListener('click', () => { //слушатель на открытие попапа добавления карточки 

@@ -58,8 +58,8 @@ class Api {
   }
 
 
-  deleteCard(cardId) {  //удалить карточку
-    return fetch(`${this._address}/cards/${cardId}`, {
+  deleteCard(item) {  //удалить карточку
+    return fetch(`${this._address}/cards/${item._id}`, {
       method: "DELETE",
       headers: this._headers
     })
@@ -85,10 +85,13 @@ class Api {
  
 
 
-  editUserAvatar() {  //изменить аватар
+  changeAvatar(link) {  //изменить аватар
     return fetch(`${this._address}/users/me/avatar`, {
-      method: "DELETE",
-      headers: this._headers
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar: link
+      })
     })
     .then(this.getResponse);
   }

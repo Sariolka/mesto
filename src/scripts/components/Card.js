@@ -1,5 +1,5 @@
 export class Card {
-  constructor({item, handleCardClick, handleClickIconDelete, getUserId}, cardTemplateSelector ) {
+  constructor({item, userId, handleCardClick, handleClickIconDelete, handleLike, handleDislike}, cardTemplateSelector ) {
     this._item = item;
     this._name = item.name;
     this._link = item.link;
@@ -9,7 +9,9 @@ export class Card {
     this._cardTemplateSelector = cardTemplateSelector;
     this._handleCardClick = handleCardClick;
     this._handleClickIconDelete = handleClickIconDelete;
-    this._userId = getUserId;
+    this._userId = userId;
+    this._handleLike = handleLike;
+    this._handleDislike = handleDislike;
   }
 
   _getTemplate() { //получение содержимого template из документа
@@ -24,30 +26,42 @@ export class Card {
 
  handleDeleteCard() { // функция удаления карточки
     this._card.remove();
-    this._card = null
+    this._card = null;
   }
 
-  handleLikeCard() { //функция поставить лайк на фотографию
-    //this._likes = item.likes;
+  handleLikeCard(item) { //функция поставить лайк на фотографию
+    this._likes = item.likes;
     this._likesCount.textContent = this._likes.length;
     this._likeButton.classList.toggle('card__like_active');
     console.log(this._likes.length);
   }
-  
 
-  getCardId() {    //???? не знаю, понадобится или нет!!! потом проверить
-    return this._cardId;
+  setLike() {
+    this._likeButton.classList.add('card__like_active');
   }
 
+
+  deleteLike() {
+    this._likeButton.classList.remove('card__like_active');
+  }
+
+  checkLike() {
+    
+  }
+
+  countLikes() {
+    this._likesCount.textContent = this._likes.length;
+  }
 
   _setEventListeners() {   // слушатели
     
     this._likeButton.addEventListener ('click', () => { // на лайк
-      this.handleLikeCard();
+      console.log(this._likeButton);
+      this._handleLike();
     });
 
     this._deleteButton.addEventListener ('click', () => { // на удаление
-      this._handleClickIconDelete(this._item); //тут this._item
+      this._handleClickIconDelete(); 
     });
 
     this._cardPhoto.addEventListener ('click', () => { // на открытие
@@ -76,7 +90,7 @@ export class Card {
   }
 
   _removeDeleteButton() {
-    if(this._item.owner._id !== this._userId()) {
+    if(this._item.owner._id !== this._userId) {
       this._deleteButton.remove();
     }
   }
