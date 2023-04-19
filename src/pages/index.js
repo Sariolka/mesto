@@ -26,6 +26,7 @@ const linkInput = formPlace.querySelector('.popup__input_form_link');
 //const job = document.querySelector('.profile__description');
 //const popupArray = Array.from(document.querySelectorAll('.popup')); //создаю массив попапов 
 
+
 const userInfo = new UserInfo({  //данные пользователя
   nameSelector: '.profile__name',
   infoSelector: '.profile__description'
@@ -42,33 +43,19 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
   });
 
   function getUserId() {
-    console.log(userInfo.getUserId());
     return userInfo.getUserId();
   }
 
-const popupCardDelete = new PopupWithSubmit({   //создание попапа подтверждения удаления карточки
-  popupSelector:'.popup_type_card-delete',
-  handleSubmitDelete: ({item}) => {
-    api.deleteCard(item._id)
-    .then(() => {     //???????????????
-      item.handleDeleteCard();
-      popupCardDelete.close();
-    })
-    .catch((err) => {
-      console.log(`Ошибка: ${err}`);
-  })
-}
-});
-popupCardDelete.setEventListeners();
 
-const createCard = (item) => { //создание экземпляра карточки
+function createCard(item) { //создание экземпляра карточки
   const card = new Card({
-    item, 
+    item: card, 
     handleCardClick: (place, link) => {
       popupOpenPhoto.open(place, link);
     },
-    handleClickIconDelete: (item) => {
-      popupCardDelete.open(item);
+    handleClickIconDelete: (card) => {
+      popupCardDelete.open(card);
+      console.log(card._id);
     }, 
     getUserId
   }, '.card-template'); 
@@ -76,6 +63,36 @@ const createCard = (item) => { //создание экземпляра карт�
   
   return cardItem;
 };
+
+function submit(card) { //???????????????
+  console.log(card);
+  api.deleteCard(card._id)
+  .then((res) => {
+    console.log(res);
+    card.handleDeleteCard();
+    popupCardDelete.close();
+   })
+   .catch((err) => {
+    console.log(err);
+  })
+  }
+
+
+const popupCardDelete = new PopupWithSubmit({   //создание попапа подтверждения удаления карточки
+  popupSelector:'.popup_type_card-delete',
+  submit//: (cardId) => {
+    //api.deleteCard(cardId)
+    //.then((res) => {     //???????????????
+    //  res.handleDeleteCard();
+     // popupCardDelete.close();
+   // })
+    //.catch((err) => {
+    //  console.log(`Ошибка: ${err}`);
+ // })
+//}
+});
+popupCardDelete.setEventListeners();
+
 
 const cardList = new Section ({  // создание 6 карточек при загрузке страницы
   renderer: (item) => {

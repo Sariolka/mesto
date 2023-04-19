@@ -47,7 +47,7 @@ export class Card {
     });
 
     this._deleteButton.addEventListener ('click', () => { // на удаление
-      this._handleClickIconDelete(this._item);
+      this._handleClickIconDelete(this._item); //тут this._item
     });
 
     this._cardPhoto.addEventListener ('click', () => { // на открытие
