@@ -16,5 +16,4 @@ export class UserInfo {
     this._userInfo.textContent = about;
     this._userId = _id;
   }
-
 }
