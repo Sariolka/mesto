@@ -24,39 +24,30 @@ export class Card {
       return cardItem;
   }
 
- handleDeleteCard() { // функция удаления карточки
+  handleDeleteCard() { // функция удаления карточки
     this._card.remove();
     this._card = null;
   }
 
   handleLikeCard(item) { //функция поставить лайк на фотографию
     this._likes = item.likes;
-    this._likesCount.textContent = this._likes.length;
     this._likeButton.classList.toggle('card__like_active');
-    console.log(this._likes.length);
-  }
-
-  setLike() {
-    this._likeButton.classList.add('card__like_active');
-  }
-
-
-  deleteLike() {
-    this._likeButton.classList.remove('card__like_active');
-  }
-
-  checkLike() {
-    
-  }
-
-  countLikes() {
     this._likesCount.textContent = this._likes.length;
   }
+
+  
+  _checkLike() {
+    this._likes.forEach((user) => {
+     if(user._id === this._userId) {
+        this._likeButton.classList.add('card__like_active');
+      }
+    })
+  }
+
 
   _setEventListeners() {   // слушатели
     
     this._likeButton.addEventListener ('click', () => { // на лайк
-      console.log(this._likeButton);
       this._handleLike();
     });
 
@@ -68,6 +59,14 @@ export class Card {
       this._handleCardClick(this._name, this._link); 
     });
   }
+
+
+  _removeDeleteButton() {
+    if(this._item.owner._id !== this._userId) {
+      this._deleteButton.remove();
+    }
+  }
+
 
   generateCard() { //подготовка карточки к публикации, наполнение данными
     this._card = this._getTemplate();  
@@ -81,18 +80,12 @@ export class Card {
     this._cardPhoto.src = this._link;
     this._cardPhoto.alt = this._name;
 
-    this._likesCount.textContent = this._likes.length;
-
     this._removeDeleteButton();
+    this._checkLike();
+    this._likesCount.textContent = this._likes.length;
     this._setEventListeners();
 
     return this._card;
-  }
-
-  _removeDeleteButton() {
-    if(this._item.owner._id !== this._userId) {
-      this._deleteButton.remove();
-    }
-  }
+  } 
 }
 

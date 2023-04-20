@@ -85,12 +85,12 @@ class Api {
  
 
 
-  changeAvatar(link) {  //изменить аватар
+  changeAvatar(data) {  //изменить аватар
     return fetch(`${this._address}/users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
-        avatar: link
+        avatar: data.link
       })
     })
     .then(this.getResponse);

@@ -62,10 +62,17 @@ const createCard = (item) => { //создание экземпляра карт�
           })
     })},
     handleLike: () => {
-      api.getLikeCard(card)
-      .then((res) => {
-        console.log(res);
+      api.getLikeCard(item)
+      .then((item) => {
         card.handleLikeCard(item);
+    })
+    .catch((err) => {
+      console.log(err);
+   })},
+   handleDislike: () => {
+    api.deleteLikeCard(item)
+    .then((item) => {
+      card.handleLikeCard(item);
     })
     .catch((err) => {
       console.log(err);
