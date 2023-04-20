@@ -35,7 +35,7 @@ export class Card {
     this._likesCount.textContent = this._likes.length;
   }
 
-  
+
   _checkLike() {
     this._likes.forEach((user) => {
      if(user._id === this._userId) {
@@ -48,7 +48,11 @@ export class Card {
   _setEventListeners() {   // слушатели
     
     this._likeButton.addEventListener ('click', () => { // на лайк
-      this._handleLike();
+      if(this._likeButton.classList.contains('card__like_active')) {
+        this._handleDislike();
+      } else {
+        this._handleLike();
+      } 
     });
 
     this._deleteButton.addEventListener ('click', () => { // на удаление
