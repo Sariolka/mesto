@@ -48,11 +48,7 @@ export class Card {
   _setEventListeners() {   // слушатели
     
     this._likeButton.addEventListener ('click', () => { // на лайк
-      if(this._likeButton.classList.contains('card__like_active')) {
-        this._handleDislike();
-      } else {
-        this._handleLike();
-      } 
+      ithis._likeButton.classList.contains('card__like_active') ? this._handleDislike() : this._handleLike()
     });
 
     this._deleteButton.addEventListener ('click', () => { // на удаление
