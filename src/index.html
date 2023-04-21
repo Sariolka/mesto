@@ -9,18 +9,19 @@
 <body>
   <div class="page">
       <header class="header">
-          <img src="<%=require('./images/logo.svg')%>" alt="Логотип сайта" class="header__logo">  
+        <img src="<%=require('./images/logo.svg')%>" alt="Логотип сайта" class="header__logo">  
       </header>
       <main class="content">
         <section class="profile">
           <div class="profile__info">
-              <button type="button" aria-label= "Изменить аватар" class="profile__avatar-button"></button>
+            <button type="button" aria-label= "Изменить аватар" class="profile__avatar-button">
               <img src="<%=require('./images/image.jpg')%>" alt="Аватар" class="profile__avatar">
-              <div class="profile__container">
-                <h1 class="profile__name"></h1>
-                <button type="button" aria-label= "Изменить данные профиля" class="profile__edit-button"></button>
-                <p class="profile__description"></p>
-              </div>
+            </button>
+            <div class="profile__container">
+              <h1 class="profile__name"></h1>
+              <button type="button" aria-label= "Изменить данные профиля" class="profile__edit-button"></button>
+              <p class="profile__description"></p>
+            </div>
           </div>
           <button type="button" aria-label= "Создать карточку с фотографией" class="profile__add-button"></button>
         </section>
