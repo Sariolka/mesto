@@ -12,23 +12,23 @@ import { PopupWithSubmit } from '../scripts/components/PopupWithSubmit.js';
 
 const buttonAddCard = document.querySelector('.profile__add-button');
 const buttonEdit = document.querySelector('.profile__edit-button');
+const buttonAvatarChange = document.querySelector('.profile__avatar-button');
 const formPlace = document.querySelector('.popup__form-place');
 const formProfile = document.querySelector('.popup__form-profile');
+const formChangeAvatar = document.querySelector('.popup__form-avatar');
 const nameInput = formProfile.querySelector('.popup__input_form_name');
 const jobInput = formProfile.querySelector('.popup__input_form_description');
-const placeInput = formPlace.querySelector('.popup__input_form_place');
-const linkInput = formPlace.querySelector('.popup__input_form_link');
-//const username = document.querySelector('.profile__name');
-//const job = document.querySelector('.profile__description');
-//const popupArray = Array.from(document.querySelectorAll('.popup')); //создаю массив попапов 
 
 
 const userInfo = new UserInfo({  //данные пользователя
   nameSelector: '.profile__name',
-  infoSelector: '.profile__description'
+  infoSelector: '.profile__description',
+  avatarSelector: '.profile__avatar'
 }) 
 
 let userId = "";
+
+
 
 Promise.all([api.getUserInfo(), api.getInitialCards()])
 .then(([data, items]) => {
@@ -84,11 +84,6 @@ const createCard = (item) => { //создание экземпляра карт�
 };
 
 
-const popupCardDelete = new PopupWithSubmit({   //создание попапа подтверждения удаления карточки
-  popupSelector:'.popup_type_card-delete'});
-popupCardDelete.setEventListeners();
-
-
 const cardList = new Section ({  // создание 6 карточек при загрузке страницы
   renderer: (item) => {
     cardList.addItem(createCard(item));
@@ -96,14 +91,12 @@ const cardList = new Section ({  // создание 6 карточек при �
 }, '.cards');  
 
 
+const popupCardDelete = new PopupWithSubmit({   //создание попапа подтверждения удаления карточки
+  popupSelector:'.popup_type_card-delete'});
+popupCardDelete.setEventListeners();
+
 const popupOpenPhoto = new PopupWithImage('.popup_type_photo-full'); //попап открытия фотографии
 popupOpenPhoto.setEventListeners();
-
-const popupProfileFormValidator = new FormValidator(formValidationConfig, formProfile);
-popupProfileFormValidator.enableValidation();
-const popupAddCardFormValidator = new FormValidator(formValidationConfig, formPlace);
-popupAddCardFormValidator.enableValidation();
-
 
 
 const popupProfile = new PopupWithForm({ //попап редактирования профиля
@@ -119,6 +112,7 @@ const popupProfile = new PopupWithForm({ //попап редактировани
   }
 });
 popupProfile.setEventListeners();
+
 
 const popupAddCard = new PopupWithForm({ // создание попапа добавления карточки
   popupSelector:'.popup_type_card-create',
@@ -136,13 +130,33 @@ const popupAddCard = new PopupWithForm({ // создание попапа доб
 popupAddCard.setEventListeners();
 
 
+const popapChangeAvatar = new PopupWithForm({  //попап изменения аватара
+  popupSelector: '.popup_type_avatar-change',
+  handleFormSubmit: (data) => {
+    api.changeAvatar(data)
+    .then((res)=> {
+      userInfo.setUserInfo(res);
+      popapChangeAvatar.close();
+    })
+    .catch((err) => {
+      console.log(`Ошибка: ${err}`);
+    })
+  }
+})
+popapChangeAvatar.setEventListeners();
+
+
+buttonAvatarChange.addEventListener('click', () => {
+  popupAddCardFormValidator.resetForm();
+  popapChangeAvatar.open();
+})
+
+
+
 buttonEdit.addEventListener('click', () => {
-  
   popupProfileFormValidator.enableButton();
-  const userData = userInfo.getUserInfo();
-  nameInput.value = userData.name;
-  jobInput.value = userData.about;
-  
+  popupProfile.setInputValues(userInfo.getUserInfo());
+ 
   popupProfile.open();
 }); //слушатель на открытие попапа редактирования профиля);
 
@@ -152,3 +166,11 @@ buttonAddCard.addEventListener('click', () => { //слушатель на отк
   popupAddCardFormValidator.resetForm();
   popupAddCard.open();
 });
+
+
+const popupProfileFormValidator = new FormValidator(formValidationConfig, formProfile);
+popupProfileFormValidator.enableValidation();
+const popupAddCardFormValidator = new FormValidator(formValidationConfig, formPlace);
+popupAddCardFormValidator.enableValidation();
+//const popupAvatarFormvalidator = new FormValidator(formValidationConfig, formChangeAvatar);
+//popupAvatarFormvalidator.enableValidation();
