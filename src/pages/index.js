@@ -15,10 +15,8 @@ const buttonEdit = document.querySelector('.profile__edit-button');
 const buttonAvatarChange = document.querySelector('.profile__avatar-button');
 const formProfile = document.querySelector('.popup__form-profile');
 const formPlace = document.querySelector('.popup__form-place');
-
 const formAvatar = document.querySelector('.popup__form-avatar');
-const nameInput = formProfile.querySelector('.popup__input_form_name');
-const jobInput = formProfile.querySelector('.popup__input_form_description');
+
 
 
 const userInfo = new UserInfo({  //данные пользователя
@@ -87,7 +85,7 @@ const createCard = (item) => { //создание экземпляра карт�
 
 const cardList = new Section ({  // создание 6 карточек при загрузке страницы
   renderer: (item) => {
-    cardList.addItem(createCard(item));
+    cardList.addItems(createCard(item));
   }
 }, '.cards');  
 
@@ -103,12 +101,16 @@ popupOpenPhoto.setEventListeners();
 const popupProfile = new PopupWithForm({ //попап редактирования профиля
   popupSelector:'.popup_type_profile-edit',
   handleFormSubmit: (data) => { //добавление новых данных пользователя на страницу при сабмите формы
+    popupProfile.renderLoading(true);
     api.editUserProfile(data)
   .then((data) => {
     userInfo.setUserInfo(data);
   })
   .catch((err) => {
     console.log(`Ошибка: ${err}`);
+  })
+  .finally(() => {
+    popupProfile.renderLoading(false);
   })
   }
 });
@@ -118,6 +120,7 @@ popupProfile.setEventListeners();
 const popupAddCard = new PopupWithForm({ // создание попапа добавления карточки
   popupSelector:'.popup_type_card-create',
   handleFormSubmit: (item) => {  // добавление карточки на страницу при сабмите формы
+    popupAddCard.renderLoading(true);
     api.addNewCard(item) 
       .then((item)=> {
         cardList.addItem(createCard(item));
@@ -125,6 +128,9 @@ const popupAddCard = new PopupWithForm({ // создание попапа доб
       })
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
+      })
+      .finally(() => {
+        popupAddCard.renderLoading(false);
       })
     }
   });
@@ -134,6 +140,7 @@ popupAddCard.setEventListeners();
 const popapChangeAvatar = new PopupWithForm({  //попап изменения аватара
   popupSelector: '.popup_type_avatar-change',
   handleFormSubmit: (data) => {
+    popapChangeAvatar.renderLoading(true);
     api.changeAvatar(data)
     .then((res)=> {
       userInfo.setUserInfo(res);
@@ -141,6 +148,9 @@ const popapChangeAvatar = new PopupWithForm({  //попап изменения �
     })
     .catch((err) => {
       console.log(`Ошибка: ${err}`);
+    })
+    .finally(() => {
+      popapChangeAvatar.renderLoading(false);
     })
   }
 })
