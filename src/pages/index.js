@@ -18,15 +18,13 @@ const formPlace = document.querySelector('.popup__form-place');
 const formAvatar = document.querySelector('.popup__form-avatar');
 
 
-
 const userInfo = new UserInfo({  //данные пользователя
   nameSelector: '.profile__name',
   infoSelector: '.profile__description',
   avatarSelector: '.profile__avatar'
-}) 
+});
 
 let userId = "";
-
 
 
 Promise.all([api.getUserInfo(), api.getInitialCards()])
@@ -153,7 +151,7 @@ const popapChangeAvatar = new PopupWithForm({  //попап изменения �
       popapChangeAvatar.renderLoading(false);
     })
   }
-})
+});
 popapChangeAvatar.setEventListeners();
 
 const popupProfileFormValidator = new FormValidator(formValidationConfig, formProfile);
@@ -168,7 +166,7 @@ buttonAvatarChange.addEventListener('click', () => {  //слушатель на 
   popupAvatarFormValidator.disableButton();
   popupAvatarFormValidator.resetForm();
   popapChangeAvatar.open();
-})
+});
 
 
 

@@ -26,7 +26,7 @@
 }
 
 .profile__avatar-button:hover:after {
-  opacity: 1;
+  opacity: .8;
 }
 
 

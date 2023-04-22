@@ -4,17 +4,13 @@ class Api {
     this._headers = options.headers; 
   }
   
-
   getResponse(res) {
     if (res.ok) {
       console.log(res);
       return res.json();
-      
     }
     return Promise.reject(`Ошибка: ${res.status}`)
   }
-
-
 
   getInitialCards() {                             //получить карточки
     return fetch(`${this._address}/cards`, {
@@ -44,7 +40,6 @@ class Api {
     .then(this.getResponse);
   }
 
-
   addNewCard(item) {   //добавить новую карточку
     return fetch(`${this._address}/cards`, {
       method: "POST",
@@ -57,7 +52,6 @@ class Api {
     .then(this.getResponse);
   }
 
-
   deleteCard(item) {  //удалить карточку
     return fetch(`${this._address}/cards/${item._id}`, {
       method: "DELETE",
@@ -66,7 +60,6 @@ class Api {
     .then(this.getResponse); 
   }
   
-
   getLikeCard(item) {  //поставить лайк
     return fetch(`${this._address}/cards/${item._id}/likes`, {
       method: "PUT",
@@ -82,8 +75,6 @@ class Api {
     })
     .then(this.getResponse);
   }
- 
-
 
   changeAvatar(data) {  //изменить аватар
     return fetch(`${this._address}/users/me/avatar`, {
@@ -100,8 +91,8 @@ class Api {
 export const api = new Api({
   baseUrl: `https://mesto.nomoreparties.co/v1/cohort-64`,
   headers: {
-      authorization: 'e266c9d4-7550-484d-9fea-f5c65957f0a5',
-      'Content-Type': 'application/json',
-}
+    authorization: 'e266c9d4-7550-484d-9fea-f5c65957f0a5',
+    'Content-Type': 'application/json',
+  }
 })
 

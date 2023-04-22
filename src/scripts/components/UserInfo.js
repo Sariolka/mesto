@@ -12,8 +12,6 @@ export class UserInfo {
       avatar: this._userAvatar.src
     }
   }
-  
-
 
   setUserInfo({name, about, avatar}) { // принимает новые данные пользователя и добавляет их на страницу
     this._userName.textContent = name;

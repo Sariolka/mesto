@@ -4,12 +4,11 @@ export class Section {
     this._container = document.querySelector(containerSelector);
   }
 
-
-  addItem(item) {   //принимает разметку карточки и вставляет ее в контейнер
+  addItem(item) {   //вставляет в контейнер 1 карточку
     this._container.prepend(item);
   }
   
-  addItems(item) {   //принимает разметку карточки и вставляет ее в контейнер
+  addItems(item) {   //отрисосывает принимаемые карточки
     this._container.append(item);
   }
 

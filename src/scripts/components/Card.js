@@ -35,7 +35,6 @@ export class Card {
     this._likesCount.textContent = this._likes.length;
   }
 
-
   _checkLike() {
     this._likes.forEach((user) => {
      if(user._id === this._userId) {
@@ -43,7 +42,6 @@ export class Card {
       }
     })
   }
-
 
   _setEventListeners() {   // слушатели
     
@@ -60,13 +58,11 @@ export class Card {
     });
   }
 
-
   _removeDeleteButton() {
     if(this._item.owner._id !== this._userId) {
       this._deleteButton.remove();
     }
   }
-
 
   generateCard() { //подготовка карточки к публикации, наполнение данными
     this._card = this._getTemplate();  

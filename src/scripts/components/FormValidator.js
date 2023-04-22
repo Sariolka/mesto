@@ -6,16 +6,13 @@ export class FormValidator {
     this._buttonElement = this._formElement.querySelector(this._formValidationConfig.submitButtonSelector);
   }
 
-  
-
-
   _showInputError = (inputElement, validationMessage) => {// функция показывает сообщение об ошибке
     const errorElement =  this._formElement.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.add(this._formValidationConfig.inputErrorClass);
     errorElement.textContent = validationMessage;
     errorElement.classList.add(this._formValidationConfig.errorClass);
-  }
-    
+  }  
+
   _hideInputError = (inputElement) => { //функция скрывает сообщение об ошибке
     const errorElement =  this._formElement.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.remove(this._formValidationConfig.inputErrorClass);
@@ -49,8 +46,8 @@ export class FormValidator {
   enableButton = () => { //функция, разблокирующая кнопку сабмит
     this._buttonElement.classList.remove(this._formValidationConfig.inactiveButtonClass);
     this._buttonElement.removeAttribute('disabled');
-  }
-    
+  } 
+
   _toggleButtonState = () => { //функция, меняющая состояние кнопки сабмит
     if (this._hasInvalidInput()) {
       this.disableButton();
@@ -69,7 +66,6 @@ export class FormValidator {
     });
     this._formElement.addEventListener('submit', this._disableSubmit);
   }
-  
 
   resetForm = () => {
     this._toggleButtonState();
