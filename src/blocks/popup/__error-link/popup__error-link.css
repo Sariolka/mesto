@@ -5,8 +5,6 @@
 
 @media (max-width: 520px) {
   .popup__error-link {
-    position: relative;
-    top: 0;
-    margin-top: 5px;
+    line-height: 0.9;
   }
 }

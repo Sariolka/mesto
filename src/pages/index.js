@@ -163,6 +163,7 @@ buttonAvatarChange.addEventListener('click', () => {  //слушатель на 
 
 
 buttonEdit.addEventListener('click', () => { //слушатель на открытие попапа редактирования профиля;
+  popupProfileFormValidator.resetForm();
   popupProfileFormValidator.enableButton();
   popupProfile.setInputValues(userInfo.getUserInfo());
  
