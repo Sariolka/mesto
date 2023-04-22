@@ -13,9 +13,10 @@ import { PopupWithSubmit } from '../scripts/components/PopupWithSubmit.js';
 const buttonAddCard = document.querySelector('.profile__add-button');
 const buttonEdit = document.querySelector('.profile__edit-button');
 const buttonAvatarChange = document.querySelector('.profile__avatar-button');
-const formPlace = document.querySelector('.popup__form-place');
 const formProfile = document.querySelector('.popup__form-profile');
-const formChangeAvatar = document.querySelector('.popup__form-avatar');
+const formPlace = document.querySelector('.popup__form-place');
+
+const formAvatar = document.querySelector('.popup__form-avatar');
 const nameInput = formProfile.querySelector('.popup__input_form_name');
 const jobInput = formProfile.querySelector('.popup__input_form_description');
 
@@ -145,20 +146,28 @@ const popapChangeAvatar = new PopupWithForm({  //попап изменения �
 })
 popapChangeAvatar.setEventListeners();
 
+const popupProfileFormValidator = new FormValidator(formValidationConfig, formProfile);
+popupProfileFormValidator.enableValidation();
+const popupAddCardFormValidator = new FormValidator(formValidationConfig, formPlace);
+popupAddCardFormValidator.enableValidation();
+const popupAvatarFormValidator = new FormValidator(formValidationConfig, formAvatar);
+popupAvatarFormValidator.enableValidation();
 
-buttonAvatarChange.addEventListener('click', () => {
-  popupAddCardFormValidator.resetForm();
+
+buttonAvatarChange.addEventListener('click', () => {  //слушатель на открытие попапа редактирования аватара
+  popupAvatarFormValidator.disableButton();
+  popupAvatarFormValidator.resetForm();
   popapChangeAvatar.open();
 })
 
 
 
-buttonEdit.addEventListener('click', () => {
+buttonEdit.addEventListener('click', () => { //слушатель на открытие попапа редактирования профиля;
   popupProfileFormValidator.enableButton();
   popupProfile.setInputValues(userInfo.getUserInfo());
  
   popupProfile.open();
-}); //слушатель на открытие попапа редактирования профиля);
+}); 
 
 
 buttonAddCard.addEventListener('click', () => { //слушатель на открытие попапа добавления карточки 
@@ -166,11 +175,3 @@ buttonAddCard.addEventListener('click', () => { //слушатель на отк
   popupAddCardFormValidator.resetForm();
   popupAddCard.open();
 });
-
-
-const popupProfileFormValidator = new FormValidator(formValidationConfig, formProfile);
-popupProfileFormValidator.enableValidation();
-const popupAddCardFormValidator = new FormValidator(formValidationConfig, formPlace);
-popupAddCardFormValidator.enableValidation();
-//const popupAvatarFormvalidator = new FormValidator(formValidationConfig, formChangeAvatar);
-//popupAvatarFormvalidator.enableValidation();

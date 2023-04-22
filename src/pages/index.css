@@ -35,6 +35,7 @@
 @import url(../blocks/popup/__error-link/popup__error-link.css);
 @import url(../blocks/popup/__error-name/popup__error-name.css);
 @import url(../blocks/popup/__error-place/popup__error-place.css);
+@import url(../blocks/popup/__error-avatar/popup__error-avatar.css);
 @import url(../blocks/popup/__title/_delete-card/popup__title_delete-card.css);
 
 /*elements*/
