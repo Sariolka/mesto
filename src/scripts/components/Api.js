@@ -75,6 +75,7 @@ class Api {
       headers: this._headers,
     }).then(this.getResponse);
   }
+  
 
   changeAvatar(data) {
     //изменить аватар
@@ -95,3 +96,5 @@ export const api = new Api({
     "Content-Type": "application/json",
   },
 });
+
+

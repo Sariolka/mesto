@@ -19,11 +19,11 @@ export class UserInfo {
     return this._userId;
   }
 
-  setUserInfo({ name, about, avatar, userId }) {
+  setUserInfo({ name, about, avatar, _id }) {
     // принимает новые данные пользователя и добавляет их на страницу
     this._userName.textContent = name;
     this._userInfo.textContent = about;
     this._userAvatar.src = avatar;
-    this._userId = userId;
+    this._userId = _id;
   }
 }
