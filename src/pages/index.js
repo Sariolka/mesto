@@ -20,8 +20,6 @@ const userInfo = new UserInfo({
   avatarSelector: ".profile__avatar",
 });
 
-
-
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([data, items]) => {
     userInfo.setUserInfo(data);
